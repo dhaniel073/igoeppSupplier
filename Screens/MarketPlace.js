@@ -41,6 +41,14 @@ const MarketPlace = ({navigation}) => {
     return <LoadingOverlay/>
   }
 
+  const NoSubCategoryNote = () => {
+    return (
+      <View style={{ justifyContent:'center', alignItems:'center', marginTop: DIMENSION.HEIGHT * 0.33}}>
+        <Text style={{ fontSize: 14, color: 'grey', fontFamily: 'poppinsSemiBold' }}>No Item Created</Text>
+      </View>
+    )
+  }
+
   return (
     <SafeAreaView style={{marginTop: marginStyle.marginTp, marginHorizontal:5,flex:1}}>
        <View style={{flexDirection:'row', justifyContent:'space-between'}}>
@@ -54,6 +62,9 @@ const MarketPlace = ({navigation}) => {
         </TouchableOpacity>
       </View>
 
+      {
+        fetchedcategory.length === 0 ? <NoSubCategoryNote/> :
+      
       <FlatList
         showsVerticalScrollIndicator={false}
         data={fetchedcategory}
@@ -65,13 +76,14 @@ const MarketPlace = ({navigation}) => {
               categoryName: item.cat_name,
               categoryDesc: item.cat_desc,
             })}>
-              <Image style={styles.image2} source={{ uri:`https://phixotech.com/igoepp/public/products/${item.picture}`}}/>
+              <Image style={styles.image2} source={{ uri:`https://igoeppms.com/igoepp/public/products/${item.picture}`}}/>
               <Text style={styles.item}>{item.name}</Text>
             </TouchableOpacity>
           </View>
             }
         numColumns={2}
         /> 
+      }
     </SafeAreaView>
   )
 }

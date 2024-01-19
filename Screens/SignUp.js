@@ -12,7 +12,7 @@ import { Base64 } from 'js-base64'
 import Modal from 'react-native-modal'
 import {MaterialIcons} from '@expo/vector-icons'
 import SubmitButton from '../Components/Ui/SubmitButton'
-import { SignUpSupplier } from '../Utils/AuthRoute'
+import { ConvertPassword, SignUpSupplier } from '../Utils/AuthRoute'
 
 // import { Dropdown } from 'react-native-element-dropdown'
 // import { Image } from 'expo-image'
@@ -136,7 +136,7 @@ const SignUp = ({navigation}) => {
     useEffect(() => {
       var config = {
         method: 'get',
-        url: "https://phixotech.com/igoepp/public/api/general/country2",
+        url: "https://igoeppms.com/igoepp/public/api/general/country2",
         headers:{
           Accept: 'application/json',
           Authorization: `Bearer ${authCtx.token}`
@@ -144,7 +144,7 @@ const SignUp = ({navigation}) => {
       }
       axios(config)
       .then(function (response) {
-          console.log(JSON.stringify(response.data.data))
+        console.log(JSON.stringify(response.data.data))
         // console.log(response)
         var count = Object.keys(response.data.data).length
         // console.log(re)
@@ -159,49 +159,64 @@ const SignUp = ({navigation}) => {
         setCountryData(countryArray)
       })
       .catch(function (error) {
-          // console.log(error);
-          return;
+        // console.log(error);
+        return;
       })
-  }, [])
+    }, [])
   
   
   
   const handleState = (countryCode) => {
-      var config = {
-        method: 'get',
-        url: `https://phixotech.com/igoepp/public/api/general/state2/${countryCode}`,
-        // headers:{
-        //   Accept: 'application/json',
-        //   Authorization: `Bearer ${authCtx.token}`
-        // }
-      }
-  
-      axios(config)
-      .then(function (response) {
-          console.log(JSON.stringify(response.data))
-        var count = Object.keys(response.data.data).length;
-        let stateArray = []
-        for (var i = 0; i < count; i++){
-          stateArray.push({
-            label: response.data.data[i].state_name,
-            value: response.data.data[i].id,
-          })
-          // setStateCode(response.data.data[i].id)
-        }
-        setStateData(stateArray)
-      })
-      .catch(function (error) {
-          // console.log(error);
-          return;
-      })
-  
-  }
-  
-  const handleCity = (stateCode) => {
-    console.log(stateCode)
     var config = {
       method: 'get',
-      url: `https://phixotech.com/igoepp/public/api/general/lga2/${stateCode}`,
+      url: `https://igoeppms.com/igoepp/public/api/general/state2/${countryCode}`,
+      // headers:{
+      //   Accept: 'application/json',
+      //   Authorization: `Bearer ${authCtx.token}`
+      // }
+    }
+    axios(config)
+    .then(function (response) {
+        console.log(JSON.stringify(response.data))
+      var count = Object.keys(response.data.data).length;
+      let stateArray = []
+      for (var i = 0; i < count; i++){
+        stateArray.push({
+          label: response.data.data[i].state_name,
+          value: response.data.data[i].id,
+        })
+        // setStateCode(response.data.data[i].id)
+      }
+      setStateData(stateArray)
+    })
+    .catch(function (error) {
+      // console.log(error);
+      return;
+    })
+  }
+
+  const convertpasswordget = async () => {
+    toggleAcceptTermsModal()
+    try {
+      setIsLoading(true)
+      const response = await ConvertPassword(enteredPassword)
+      console.log(response)
+      const password = response
+      signupSend(password)
+    } catch (error) {
+      setIsLoading(true)
+      console.log(error.response)
+      Alert.alert("Error", "An error occured")
+      setIsLoading(false)
+    }
+  }
+  
+  
+  const handleCity = (stateCode) => {
+    // console.log(stateCode)
+    var config = {
+      method: 'get',
+      url: `https://igoeppms.com/igoepp/public/api/general/lga2/${stateCode}`,
       headers:{
         Accept: 'application/json',
         Authorization: `Bearer ${authCtx.token}`
@@ -210,7 +225,7 @@ const SignUp = ({navigation}) => {
 
     axios(config)
     .then(function (response) {
-      console.log(JSON.stringify(response.data))
+      // console.log(JSON.stringify(response.data))
       var count = Object.keys(response.data.data).length;
       let cityArray = []
       for (var i = 0; i < count; i++){
@@ -267,7 +282,7 @@ const SignUp = ({navigation}) => {
     return <LoadingOverlay message={'...'}/>
   }
 
-  console.log(idnum)
+  // console.log(idnum)
     
 
     
@@ -286,7 +301,7 @@ const SignUp = ({navigation}) => {
       const idtypecheck = idtype === null || undefined || "" || idtype.length === 0
 
        
-      console.log(passcheck)
+      // console.log(passcheck)
 
         if(!enteredLastName || !enteredFirstname || !emailIsValid || !enteredPhone || !enteredGender  || passwordIsValid ||
          !passcheck || countrycheck || statecheck || citycheck || !address
@@ -329,12 +344,12 @@ const SignUp = ({navigation}) => {
       // setIsLoading(false)
     }
 
-    const signupSend = async () => {
-      const passwordMd5 = Base64.encode(enteredPassword)
+    const signupSend = async (conpass) => {
+      // const passwordMd5 = Base64.encode(enteredPassword)
       // console.log(addresstoUse)
       try {
         setIsLoading(true)
-        const response = await SignUpSupplier(enteredLastName, enteredFirstname, enteredGender, country, state, city, enteredEmail, enteredPhone, passwordMd5,  address, idtype, idnum, referral_code)
+        const response = await SignUpSupplier(enteredLastName, enteredFirstname, enteredGender, country, state, city, enteredEmail, enteredPhone, conpass,  address, idtype, idnum, referral_code)
         console.log(response)
         authCtx.authenticated(response.access_token)
         authCtx.supplierId(response.supplier_id)
@@ -344,6 +359,7 @@ const SignUp = ({navigation}) => {
         authCtx.supplierPhone(response.phone)
         authCtx.supplierPicture(response.picture)
         authCtx.supplieruserid(response.userid.toString())
+        authCtx.supplierBalance(response.wallet_balance)
         authCtx.supplierShowAmount('show')
         authCtx.supplierlastLoginTimestamp(new Date().toString())
         setIsLoading(false)
@@ -702,7 +718,7 @@ const SignUp = ({navigation}) => {
         <View style={{marginBottom:10}}/>
     {
       avail  && 
-        <SubmitButton style={{flex:1, marginLeft:10, marginHorizontal:20}} message={"Continue"} onPress={() => signupSend()}/>
+        <SubmitButton style={{flex:1, marginLeft:10, marginHorizontal:20}} message={"Continue"} onPress={() => convertpasswordget()}/>
     }
     </View>
       <View style={{marginBottom:20}}/>

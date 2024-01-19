@@ -116,7 +116,7 @@ export const VirtualTopUp = ({navigation, route}) => {
 
   useEffect(() => {
     setisloading(true)
-    const url = `https://phixotech.com/igoepp/public/api/auth/billpayment/getAllBillersByCategory/${authId}`
+    const url = `https://igoeppms.com/igoepp/public/api/auth/billpayment/getAllBillersByCategory/${authId}`
     const response = axios.get(url, {
         headers:{
             Accept:'application/json',
@@ -154,7 +154,7 @@ export const VirtualTopUp = ({navigation, route}) => {
 const getBouquets = (value) => {
     // console.log(authId, id)
     
-    const url = `https://phixotech.com/igoepp/public/api/auth/billpayment/getAllBouquetByBillerID/${authId}/${value}`
+    const url = `https://igoeppms.com/igoepp/public/api/auth/billpayment/getAllBouquetByBillerID/${authId}/${value}`
     const response = axios.get(url, {
         headers:{
             Accept:'application/json',
