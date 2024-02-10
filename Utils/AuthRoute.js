@@ -745,7 +745,8 @@ async function supplierproductstore(product_category_id, supplier_id, name,descr
     "description": description,
     "price": price,
     "shipping_cost": shipping_cost,
-    "available": available
+    "available": available,
+    'deleted': 'N'
   },{
     headers:{
       Accept: 'application/json',
@@ -756,8 +757,32 @@ async function supplierproductstore(product_category_id, supplier_id, name,descr
   return data
 }
 
+async function supplierproductupdate(product_category_id, supplier_id, name, description, price, shipping_cost, available, token){
+  // const url = `productcategory/{id}/update`
+  const response = await axios.put(`https://phixotech.com/igoepp/public/api/auth/product/${product_category_id}/update`, {
+    "supplier_id": supplier_id,
+    "name": name,
+    "description": description,
+    "price": price,
+    "shipping_cost": shipping_cost,
+    "available": available,
+    // "picture": picture
+  },{
+    headers:{
+      Accept: 'application/json',
+      Authorization: `Bearer ${token}`
+    }
+  })
+  const data = response
+  return data
+}
+
+
+
 async function customerrequest(id, token){
-  const response = await axios.get(`https://phixotech.com/igoepp/public/api/auth/purchaseheaderbysuppid/${id}`,{
+  // const url = `https://phixotech.com/igoepp/public/api/auth/purchaseheaderbysuppid/${id}`
+  const url = `https://phixotech.com/igoepp/public/api/auth/purchasedetbysupplierid/${id}`
+  const response = await axios.get(url,{
     headers:{
       Accept: 'application/json',
       Authorization: `Bearer ${token}`
@@ -767,9 +792,216 @@ async function customerrequest(id, token){
   return data
 }
 
+async function customerrequestbyid(id, token){
+  // const url = `https://phixotech.com/igoepp/public/api/auth/purchaseheader/${id}`
+  // const url = `https://phixotech.com/igoepp/public/api/auth/purchase/${id}`
 
+  const url = `https://phixotech.com/igoepp/public/api/auth/purchasedet/${id}`
+  const response = await axios.get(url,{
+    headers:{
+      Accept: 'application/json',
+      Authorization: `Bearer ${token}`
+    }
+  })
+  const data = response.data
+  return data
+}
+
+async function convertpassword(password){
+  // console.log(email,password)
+  const url = `https://phixotech.com/igoepp/public/api/igoeppauth/getconvpass`
+  const response = await axios.post(url, {
+      "password": password,
+  })
+  // console.log(response.data)
+  const data = response.data
+  return data 
+}
+
+async function itempackaged(id, token){
+  // console.log(email,password)
+  const url = `https://phixotech.com/igoepp/public/api/auth/itempackagedforcustomer/${id}`
+  const response = await axios.get(url, {
+    headers:{
+      Accept: 'application/json',
+      Authorization: `Bearer ${token}`
+    }
+  })
+  // console.log(response.data)
+  const data = response.data
+  return data 
+}
+
+async function itemundelivered(id, token){
+  // console.log(email,password)
+  const url = `https://phixotech.com/igoepp/public/api/auth/itemundeliveredtocustomer/${id}`
+  const response = await axios.get(url, {
+    headers:{
+      Accept: 'application/json',
+      Authorization: `Bearer ${token}`
+    }
+  })
+  // console.log(response.data)
+  const data = response.data
+  return data 
+}
+
+async function itemdelivered(id, token){
+  // console.log(email,password)
+  const url = `https://phixotech.com/igoepp/public/api/auth/itemdeliveredtocustomer/${id}`
+  const response = await axios.get(url, {
+    headers:{
+      Accept: 'application/json',
+      Authorization: `Bearer ${token}`
+    }
+  })
+  // console.log(response.data)
+  const data = response.data
+  return data 
+}
+
+async function itemdispatched(id, token){
+  // console.log(email,password)
+  const url = `https://phixotech.com/igoepp/public/api/auth/itemdispatchedforcustomer/${id}`
+  const response = await axios.get(url, {
+    headers:{
+      Accept: 'application/json',
+      Authorization: `Bearer ${token}`
+    }
+  })
+  // console.log(response.data)
+  const data = response.data
+  return data 
+}
+
+async function servicehis(id, token){
+  // console.log(email,password)
+  // const url = `https://phixotech.com/igoepp/public/api/auth/purchaseheaderbysuppiddelivered/${id}`
+  const url = `https://phixotech.com/igoepp/public/api/auth/purchasedetbysupplierid/${id}`
+  const response = await axios.get(url, {
+    headers:{
+      Accept: 'application/json',
+      Authorization: `Bearer ${token}`
+    }
+  })
+  // console.log(response.data)
+  const data = response.data
+  return data 
+}
+
+async function servicehisbyid(id, token){
+  const url = `https://phixotech.com/igoepp/public/api/auth/purchasedetsingle/${id}`
+  const response = await axios.get(url, {
+    headers:{
+      Accept: 'application/json',
+      Authorization: `Bearer ${token}`
+    }
+  })
+  // console.log(response.data)
+  const data = response.data
+  return data 
+}
+
+
+
+async function requestsumtotal (id, token) {
+  const url = `https://phixotech.com/igoepp/public/api/auth/hrequest/requestsumbysupplierid/${id}`
+  const response = await axios.get(url, {
+      headers:{
+          Accept:'application/json',
+          Authorization: `Bearer ${token}`
+      }
+  })
+
+  const data = response.data
+  return data
+}
+
+async function deleteaccount(id, token){
+  const url = `https://phixotech.com/igoepp/public/api/auth/supplier/deleteaccount`
+  const response = await axios.post(url,{
+    "supplier_id": id,
+  }, {
+    headers:{
+      Accept: 'application/json',
+      Authorization: `Bearer ${token}`
+    }
+  })
+
+  const data = response.data
+  return data
+}
+
+async function deleteproduct(id, token){
+  const url = `https://phixotech.com/igoepp/public/api/auth/product/${id}/delete`
+  const response = await axios.get(url,
+  {
+    headers:{
+      Accept: 'application/json',
+      Authorization: `Bearer ${token}`
+    }
+  })
+
+  const data = response.data
+  return data
+}
+
+async function uploadproductpicture(picture, id, token){
+  const url = `https://phixotech.com/igoepp/public/api/auth/supplier/uploadproductpicture`
+  const response = await axios.post(url, {
+    "picture":picture,
+    "productid": id,
+  },
+  {
+    headers:{
+      Accept: 'application/json',
+      Authorization: `Bearer ${token}`
+    }
+  })
+
+  const data = response.data
+  return data
+}
+
+
+
+
+ 
+
+
+export const ConvertPassword = (password) => {
+  return convertpassword(password)
+}
   
-  
+export const ItemPackaged = (id, token) => {
+  return itempackaged(id, token)
+}
+
+export const ItemUndelivered = (id, token) => {
+  return itemundelivered(id, token)
+}
+
+export const ItemDelivered = (id, token) => {
+  return itemdelivered(id, token)
+}
+
+export const ItemDispatched = (id, token) => {
+  return itemdispatched(id, token)
+}
+
+export const RequestSumTotal = (id, token) => {
+  return requestsumtotal(id, token)
+}
+
+export const ServiceHis = (id, token) => {
+  return servicehis(id, token)
+}
+
+
+export const ServiceHisById = (id, token) => {
+  return servicehisbyid(id, token)
+}
+
 
 export function SignUpUrl (lastname, firstname, country, state,  city,  email,phone,password, identification_type, identification_num){
   return signupurl(lastname, firstname, country, state,  city,  email,phone,password, identification_type, identification_num)
@@ -976,4 +1208,24 @@ export function WalletBalance(supplierId,token){
 
 export function CustomerRequest(id, token){
   return customerrequest(id, token)
+}
+
+export function CustomerRequestById(id, token){
+  return customerrequestbyid(id, token)
+}
+
+export function SupplierProductUpdate(product_category_id, supplier_id, name, description, price, shipping_cost, available, token){
+  return supplierproductupdate(product_category_id, supplier_id, name, description, price, shipping_cost, available, token)
+}
+
+export const DeleteAccount = (id, token) => {
+  return deleteaccount(id, token)
+}
+
+export const DeleteProduct = (id, token) => {
+  return deleteproduct(id, token)
+}
+
+export const UploadProductPicture = (picture, id, token) => {
+  return uploadproductpicture(picture, id, token)
 }

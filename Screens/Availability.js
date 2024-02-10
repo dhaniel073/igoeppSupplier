@@ -1,6 +1,6 @@
 import { Alert, Dimensions, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useContext, useEffect, useState } from 'react'
-import { AvailableStore, SupplierUrl, UnavailableStore } from '../Utils/AuthRoute'
+import { AvailableStore, RequestSumTotal, SupplierUrl, UnavailableStore } from '../Utils/AuthRoute'
 import LoadingOverlay from '../Components/Ui/LoadingOverlay'
 import GoBack from '../Components/Ui/GoBack'
 import { Color, DIMENSION, marginStyle } from '../Components/Ui/GlobalStyle'
@@ -59,6 +59,18 @@ const Availability = ({navigation}) => {
     return unsubscribe;
   }, [])
 
+  useEffect(() => {
+    const sumtot = navigation.addListener('focus', async () => {
+      try {
+        const response = await RequestSumTotal(authCtx.Id , authCtx.token)
+        console.log(response)
+          authCtx.suppliersumtot(response)
+      } catch (error) {
+        return;
+      }
+    })
+    return sumtot
+  }, [])
   // console.log(avail)
 
 

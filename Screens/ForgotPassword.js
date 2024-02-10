@@ -72,9 +72,9 @@ const ForgotPassword = ({navigation}) => {
       isInvalid={emailinvalid}
       onFocus={() => setemailinvalid(false)}
     />
-      <View style={styles.buttons}>
-        <SubmitButton onPress={() => submitHandler()} message={'Submit'}/>
+        <SubmitButton style={{marginTop:25, marginHorizontal:25}} onPress={() => submitHandler()} message={'Submit'}/>
 
+      <View style={styles.buttons}>
         <View style={styles.space}></View>
         <Flat onPress={() => navigation.navigate('Login')}>
           Login Instead
@@ -96,7 +96,8 @@ const styles = StyleSheet.create({
     // alignItems: 'center'
   },
   buttons: {
-    marginTop: 25,
+    marginTop: 10,
+    marginHorizontal:30
   },
   Title:{
     marginTop: 30, 

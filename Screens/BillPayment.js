@@ -6,7 +6,7 @@ import { AuthContext } from '../Utils/AuthContext'
 import LoadingOverlay from '../Components/Ui/LoadingOverlay'
 import axios from 'axios'
 import { Image } from 'expo-image'
-import { WalletBalance } from '../Utils/AuthRoute'
+import { RequestSumTotal, WalletBalance } from '../Utils/AuthRoute'
 
 const BillPayment = ({navigation}) => {
   const [category, setcategory] = useState()
@@ -20,9 +20,23 @@ const BillPayment = ({navigation}) => {
   })
 }, [])
 
+  useEffect(() => {
+    const sumtot = navigation.addListener('focus', async () => {
+      try {
+        const response = await RequestSumTotal(authCtx.Id , authCtx.token)
+        console.log(response)
+          authCtx.suppliersumtot(response)
+      } catch (error) {
+        return;
+      }
+    })
+    return sumtot
+  }, [])
+
 const WalletCheck = async () => {
   try {
     const response =  await WalletBalance(authCtx.Id, authCtx.token)
+    console.log(response)
     authCtx.supplierBalance(response.wallet_balance)
   } catch (error) {
     console.log(error)
@@ -30,10 +44,12 @@ const WalletCheck = async () => {
   }
 }
 
+
+
   const Billers = async() => {
     try {
       setisLoading(true)
-      const url = `https://igoeppms.com/igoepp/public/api/auth/billpayment/getBillCategory`
+      const url = `https://phixotech.com/igoepp/public/api/auth/billpayment/getBillCategory`
       const response = await axios.get(url, {
         headers:{
           Accept: 'application/json',

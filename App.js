@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { Platform, StyleSheet, Text, View } from 'react-native';
+import { Alert, Platform, StyleSheet, Text, View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
@@ -22,7 +22,6 @@ import Bet from './Screens/Bet';
 import Education from './Screens/Education';
 import Internet from './Screens/Internet';
 import Television from './Screens/Television';
-
 import NotificationSetup from './Screens/NotificationSetup';
 import Biometric from './Screens/Biometric';
 import PasswordReset from './Screens/PasswordReset';
@@ -41,6 +40,8 @@ import * as Device from 'expo-device'
 import { VirtualTopUp } from './Screens/VirtualTopUp';
 import MarketPlaceItems from './Screens/MarketPlaceItems'
 import CreateProduct from './Screens/CreateProduct';
+import NetInfo from "@react-native-community/netinfo"
+import RNRestart from 'react-native-restart'
 
 
 Notification.setNotificationHandler({
@@ -111,6 +112,21 @@ export default function App() {
   
     return token;
   }
+
+  
+  const unsuscribe = NetInfo.addEventListener((state) => {
+    if(state.isConnected === false){
+      Alert.alert("No Internet Connection", "Please check your internet connection and try again!", [{
+        text: "Reload App",
+        onPress: () => RNRestart.restart()
+      }])
+    }else if(state.isConnected === true){
+    }
+  })
+
+  useEffect(() => {
+    unsuscribe()
+  })
 
   const [fontloaded] =  useFonts({
     'poppinsRegular': require("./assets/Fonts/Poppins-Regular.ttf"),
@@ -220,7 +236,7 @@ export default function App() {
             tabBarIcon:({focused}) => (
               <View style={{alignItems:'center'}}>
                     <Ionicons name="checkmark-done-outline" size={24} color={focused ? Color.white : '#d3d3d3'} />
-                <Text style={{ fontSize:8, fontFamily: 'poppinsRegular', color: focused ? Color.white : '#d3d3d3'}}>Accepted</Text>
+                <Text style={{ fontSize:8, fontFamily: 'poppinsRegular', color: focused ? Color.white : '#d3d3d3'}}>Products</Text>
               </View>
             ),
           }}
@@ -244,6 +260,47 @@ export default function App() {
   }
 
   function AuthenticatedStack (){
+    const authCtx = useContext(AuthContext)
+    useEffect(() => {
+      try {
+        checkLastLoginTimestamp()
+      } catch (error) {
+        return;
+      }
+    },[])
+    
+      // console.log(authCtx.lastLoginTimestamp + " timestamp")
+  
+      const checkLastLoginTimestamp =  () => {
+        const storedTimestamp = authCtx.lastLoginTimestamp
+        const lastLoginTimestamp = new Date(storedTimestamp);
+        const currentTimestamp = new Date();
+    
+        if(authCtx.lastLoginTimestamp === null || undefined || ""){
+          return 
+        }else{
+          // console.log(storedTimestamp + " storedtime")
+          // console.log(lastLoginTimestamp + " lastlogintime")
+          // console.log(currentTimestamp + " current time")
+
+          const timeDifferenceInMinutes = Math.floor(
+            (currentTimestamp - lastLoginTimestamp) / (1000 * 60)
+          );
+
+          // console.log(timeDifferenceInMinutes + " difference")
+      
+          // Adjust the threshold based on your requirements (e.g., 30 minutes)
+          const authenticationThresholdInMinutes = 10;
+      
+          if (timeDifferenceInMinutes > authenticationThresholdInMinutes) {
+            // Prompt the user to reauthenticate
+            // You can navigate to a login screen or show a modal for reauthentication
+            // console.log('Reauthentication required');
+            Alert.alert("Session Timeout", "Session has expired")
+            authCtx.logout()
+          }
+        }
+      };
     return (
       <Stack.Navigator
       screenOptions={{
@@ -437,6 +494,9 @@ export default function App() {
       const storedlastlogintime = await AsyncStorage.getItem('supplierlastLoginTimestamp')
       const storedpoint = await AsyncStorage.getItem('supplierPoints')
       const storeduserid = await AsyncStorage.getItem('supplieruserid')
+      const storedsumtot = await AsyncStorage.getItem('suppliersumtot')
+      
+
 
     if(storedToken && storedId && storedemail){
       authCtx.authenticated(storedToken)
@@ -451,6 +511,7 @@ export default function App() {
       authCtx.supplierlastLoginTimestamp(storedlastlogintime)
       authCtx.supplierPoints(storedpoint)
       authCtx.supplieruserid(storeduserid)
+      authCtx.suppliersumtot(storedsumtot)
     }
       setisTrying(false)
     }

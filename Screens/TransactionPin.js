@@ -379,4 +379,9 @@ const styles = StyleSheet.create({
     alignItems:'center',
     height: DIMENSION.HEIGHT * 0.4
   },  
+ text:{
+  top:8,
+  fontSize:15,
+  fontFamily: 'poppinsRegular'
+ },
 })

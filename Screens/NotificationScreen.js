@@ -1,7 +1,7 @@
 import { Button, FlatList, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useContext, useState, useRef, useEffect } from 'react'
 import { AuthContext } from '../Utils/AuthContext'
-import { Notification, NotificationById } from '../Utils/AuthRoute'
+import { Notification, NotificationById, RequestSumTotal } from '../Utils/AuthRoute'
 import GoBack from '../Components/Ui/GoBack'
 import LoadingOverlay from '../Components/Ui/LoadingOverlay'
 import {MaterialIcons} from '@expo/vector-icons'
@@ -58,6 +58,19 @@ const NotificationScreen = ({navigation}) => {
       
     }
   }
+
+  useEffect(() => {
+    const sumtot = navigation.addListener('focus', async () => {
+      try {
+        const response = await RequestSumTotal(authCtx.Id , authCtx.token)
+        console.log(response)
+          authCtx.suppliersumtot(response)
+      } catch (error) {
+        return;
+      }
+    })
+    return sumtot
+  }, [])
 
   const toggleModal = () => {
     setismodalvisible(!ismodalvisible)

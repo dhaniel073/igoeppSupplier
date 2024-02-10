@@ -5,7 +5,7 @@ import {AntDesign} from '@expo/vector-icons'
 import { Image } from 'expo-image'
 import LoadingOverlay from '../Components/Ui/LoadingOverlay'
 import { AuthContext } from '../Utils/AuthContext'
-import { SupplierUrl } from '../Utils/AuthRoute'
+import { RequestSumTotal, SupplierUrl } from '../Utils/AuthRoute'
 
 
 const ProfilePicsView = ({navigation, route}) => {
@@ -31,6 +31,19 @@ const ProfilePicsView = ({navigation, route}) => {
       return;
     }
   }
+
+  useEffect(() => {
+    const sumtot = navigation.addListener('focus', async () => {
+      try {
+        const response = await RequestSumTotal(authCtx.Id , authCtx.token)
+        console.log(response)
+          authCtx.suppliersumtot(response)
+      } catch (error) {
+        return;
+      }
+    })
+    return sumtot
+  }, [])
 
   if(isloading){
     return <LoadingOverlay message={"..."}/>

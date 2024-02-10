@@ -9,7 +9,7 @@ import { AuthContext } from '../Utils/AuthContext'
 import * as ImagePicker from 'expo-image-picker'
 import {MaterialIcons, Ionicons, FontAwesome} from '@expo/vector-icons'
 import Input from '../Components/Ui/Input'
-import { GuarantorsUpload, SupplierBankDetails, SupplierUploadAddressProof, SupplierUploadIdCard, SupplierUrl, UpLoad } from '../Utils/AuthRoute'
+import { GuarantorsUpload, RequestSumTotal, SupplierBankDetails, SupplierUploadAddressProof, SupplierUploadIdCard, SupplierUrl, UpLoad } from '../Utils/AuthRoute'
 
 
 const data = [
@@ -336,21 +336,33 @@ const pickidcardImage = async () => {
           }
         ])
     } catch (error) {
-        setisloading(true)
-        console.log(error.response)
-        Alert.alert('Error', "An error occured please try again later",  [
-          {
-            text: "Ok",
-            onPress: () => navigation.goBack()
-          }
-        ])
-        setisloading(false)
-        setImages()
-        setImageBase()
-        return;
-
+      setisloading(true)
+      console.log(error.response)
+      Alert.alert('Error', "An error occured please try again later",  [
+        {
+          text: "Ok",
+          onPress: () => navigation.goBack()
+        }
+      ])
+      setisloading(false)
+      setImages()
+      setImageBase()
+      return;
     }
-}
+  }
+
+  useEffect(() => {
+    const sumtot = navigation.addListener('focus', async () => {
+      try {
+        const response = await RequestSumTotal(authCtx.Id , authCtx.token)
+        console.log(response)
+          authCtx.suppliersumtot(response)
+      } catch (error) {
+        return;
+      }
+    })
+    return sumtot
+  }, [])
 
   const uploadIdCard = async () => {
     const uploadUrl = `data:image/jpeg;base64,${idCardBase}`

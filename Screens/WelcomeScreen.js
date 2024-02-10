@@ -38,7 +38,6 @@ const WelcomeScreen = ({navigation}) => {
   const [isLoading, setIsLoading] = useState(false)
   const [isBiometricSupported, setIsBiometricSupported] = useState(false)
   const [isAuthenticated, setIsAuthenticated] = useState(false)
-  const [sumtot, setsumtot] = useState([])
   const authCtx = useContext(AuthContext)
   const [sliimage, setsliimage] = useState([])
   const [notificationnumber, setnotificationnumber] = useState('')
@@ -57,6 +56,7 @@ const WelcomeScreen = ({navigation}) => {
     })
   } 
 
+  
   useEffect(() => {
     (async () => {
     const compatible = await LocalAuthentication.hasHardwareAsync();
@@ -103,12 +103,13 @@ const WelcomeScreen = ({navigation}) => {
       navigation.addListener('focus', async () => {
         return  NotifiationNumber()
       })
-    }, [sumtot])
+    }, [notificationnumber])
 
+  
     const NotifiationNumber = async () => {
       try {
         const response  = await NotificationUnread(authCtx.userid, authCtx.token)
-        console.log(response)
+        // console.log(response)
         setnotificationnumber(response)
       } catch (error) {
         return
@@ -119,17 +120,17 @@ const WelcomeScreen = ({navigation}) => {
       return <LoadingOverlay message={"..."}/>
     }
 
+
     const Supplierget = async () => {
       try {
         const response = await SupplierUrl(authCtx.Id, authCtx.token)
         // console.log(response)
         setPhoto(response.data.data.photo)
-        authCtx.helperPicture(response.data.data.photo)
+        // authCtx.helperPicture(response.data.data.photo)
       } catch (error) {
         return;
       }
     }
-
    
     const TrendsArray = async() => {
       try {
@@ -155,7 +156,7 @@ const WelcomeScreen = ({navigation}) => {
     }
 
     
-console.log(authCtx.picture)
+// console.log(authCtx.balance)
 
   return (
     <SafeAreaView style={{marginHorizontal:10, maxHeight: HEIGHT, marginTop: marginStyle.marginTp}}>
@@ -188,8 +189,8 @@ console.log(authCtx.picture)
             {
               notificationnumber === 0 ? null :
                 <ImageBackground transition={1000} style={{padding:5, position:'absolute', marginTop:-10, right:0}}
-                    contentFit='contain'
-                    source={require("../assets/ellipse-127.png")}>
+                  contentFit='contain'
+                  source={require("../assets/ellipse-127.png")}>
                 <Text style={[styles.text2, styles.text2Typo]}>{notificationnumber}</Text>
 
                 </ImageBackground>
@@ -276,6 +277,43 @@ console.log(authCtx.picture)
                </View>  
              </View>
             }
+
+            <View style={styles.slide1}>
+               {/* <Image style={{height:30, width:30}} source={require("../assets/vectors/vector2.png")}/> */}
+               <View style={{flexDirection:'row',}}>
+                 <View>
+                 <Text style={styles.text}>
+                   <MaterialCommunityIcons name="currency-ngn" size={20} color={Color.white} />
+                  
+                   {authCtx.showAmount === 'show' ?  !authCtx.sumtot ? "0.00" :authCtx.sumtot : <Text>******</Text>} 
+                  
+                 </Text>
+                 </View>
+
+                 
+
+                 {authCtx.showAmount === 'show' ?
+                  <TouchableOpacity style={{alignSelf:'center', marginLeft:10}} onPress={() => onAuthenticate('hide')}>
+                     <Entypo name="eye-with-line" size={24} color="white" />
+                   </TouchableOpacity>
+                 :
+                   <TouchableOpacity style={{alignSelf:'center', marginLeft:10}} onPress={() => onAuthenticate('show')}>
+
+                     <Entypo name="eye" size={24} color="white" />
+                   </TouchableOpacity>
+                 }
+
+               </View>
+
+               <View style={{flexDirection:'row', justifyContent:'space-between'}}>
+                 {
+                   Platform.OS === "android" ?
+                   <Text style={{fontSize: 15, fontFamily: 'interBold', color: Color.white}}>Outstanding Balance</Text>
+                   :
+                   <Text style={{fontSize: 15, fontFamily: 'interBold', color: Color.white, marginTop:10}}>Outstanding Balance</Text>
+                 }
+               </View>  
+             </View>
              
               </Swiper>          
             </ScrollView>
@@ -319,100 +357,94 @@ console.log(authCtx.picture)
             style={[styles.subContainer]}
           >
 
-              <View style={{marginRight:10, marginTop:5,}}>
+          <View style={{marginRight:10, marginTop:5,}}>
+            <TouchableOpacity style={styles.makepayment}  onPress={() => navigation.navigate('BillPayment')}>
+              <Image contentFit='contain' source={require("../assets/makepay.png")} style={{width:40, height: 40,  }} transition={1000}/>
+              <Text style={{ color: Color.steelblue, marginTop:5, fontSize:10,}}>Bill Payment</Text>
+            </TouchableOpacity>
 
-                <TouchableOpacity style={styles.makepayment}  onPress={() => navigation.navigate('BillPayment')}>
-                  <Image contentFit='contain' source={require("../assets/makepay.png")} style={{width:40, height: 40,  }} transition={1000}/>
-                  <Text style={{ color: Color.steelblue, marginTop:5, fontSize:10,}}>Bill Payment</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity style={[styles.viewrequest, {paddingLeft:8}]} onPress={() => navigation.navigate('ViewRequest')}>
-                  {/* <Image contentFit='contain' source={require('../assets/vectors/service.png')} style={{width:50, height: 50, marginTop:50, alignSelf:'flex-end', marginRight:30}} transition={1000}/> */}
-                  <Image contentFit='contain' source={require("../assets/group-753.png")} style={{width:50, height: 50, left:7 , marginTop: 55, marginBottom: 25 }} transition={1000}/>
-                  <View style={{ justifyContent:'flex-end', alignItems:'flex-end', marginTop: 50}}>
-                    <Text style={{color: Color.blueviolet, alignSelf:'baseline', fontSize:10,}}> View  Request</Text>
-                  </View>
-                  <View style={{marginBottom:'30%'}}/>
-                </TouchableOpacity>
-                
+            <TouchableOpacity style={[styles.viewrequest, {paddingLeft:8}]} onPress={() => navigation.navigate('ViewRequest')}>
+              {/* <Image contentFit='contain' source={require('../assets/vectors/service.png')} style={{width:50, height: 50, marginTop:50, alignSelf:'flex-end', marginRight:30}} transition={1000}/> */}
+              <Image contentFit='contain' source={require("../assets/group-753.png")} style={{width:50, height: 50, left:7 , marginTop: 55, marginBottom: 25 }} transition={1000}/>
+              <View style={{ justifyContent:'flex-end', alignItems:'flex-end', marginTop: 50}}>
+                <Text style={{color: Color.blueviolet, alignSelf:'baseline', fontSize:10,}}> View  Request</Text>
               </View>
+              <View style={{marginBottom:'30%'}}/>
+            </TouchableOpacity>
+          </View>
 
-              <View style={{marginRight:10, marginTop:5,}}>
-                <TouchableOpacity style={[styles.searchhistory, {paddingLeft:8}]} onPress={() => navigation.navigate('ServiceHistory')}>
-                  {/* <Image contentFit='contain' source={require('../assets/vectors/service.png')} style={{width:50, height: 50, marginTop:50, alignSelf:'flex-end', marginRight:30}} transition={1000}/> */}
-                  <Image contentFit='contain' source={require("../assets/service.png")} style={{width:50, height: 50,  marginTop: 55, marginBottom: 25, alignSelf:'flex-end', marginRight:30 }} transition={1000}/>
-                  <View style={{ justifyContent:'flex-end', alignItems:'flex-end', marginTop: 50}}>
-                    <Text style={{textAlign:'right', paddingRight:10, color:'#fff', fontFamily: 'poppinsRegular', fontSize:10,}}>Service History</Text>
-                  </View>
-                  <View style={{marginBottom:'30%'}}/>
-                </TouchableOpacity>
-
-                <TouchableOpacity style={styles.acceptedrequest}  onPress={() => navigation.navigate('MarketPlace')}>
-                  {/* <Image contentFit='contain' source={require('../assets/vector14.png')} style={{width:37, height: 37, marginLeft:10, marginBottom:10  }} transition={1000}/> */}
-                  <MaterialIcons name="category" size={40} color="white" style={{marginBottom:8}} />
-                  <Text style={{color:'#fff', fontFamily: 'poppinsRegular', fontSize: 10}}>View Products</Text>
-                </TouchableOpacity>
+          <View style={{marginRight:10, marginTop:5,}}>
+            <TouchableOpacity style={[styles.searchhistory, {paddingLeft:8}]} onPress={() => navigation.navigate('ServiceHistory')}>
+              {/* <Image contentFit='contain' source={require('../assets/vectors/service.png')} style={{width:50, height: 50, marginTop:50, alignSelf:'flex-end', marginRight:30}} transition={1000}/> */}
+              <Image contentFit='contain' source={require("../assets/service.png")} style={{width:50, height: 50,  marginTop: 55, marginBottom: 25, alignSelf:'flex-end', marginRight:30 }} transition={1000}/>
+              <View style={{ justifyContent:'flex-end', alignItems:'flex-end', marginTop: 50}}>
+                <Text style={{textAlign:'right', paddingRight:10, color:'#fff', fontFamily: 'poppinsRegular', fontSize:10,}}>Service History</Text>
               </View>
+              <View style={{marginBottom:'30%'}}/>
+            </TouchableOpacity>
 
-             
+            <TouchableOpacity style={styles.acceptedrequest}  onPress={() => navigation.navigate('MarketPlace')}>
+              {/* <Image contentFit='contain' source={require('../assets/vector14.png')} style={{width:37, height: 37, marginLeft:10, marginBottom:10  }} transition={1000}/> */}
+              <MaterialIcons name="category" size={40} color="white" style={{marginBottom:8}} />
+              <Text style={{color:'#fff', fontFamily: 'poppinsRegular', fontSize: 10}}>View Products</Text>
+            </TouchableOpacity>
+          </View>
 
-              <View style={{marginRight:10, marginTop:5}}>
-              
-                <TouchableOpacity style={[styles.availability, {paddingLeft:8}]} onPress={() => navigation.navigate('Availability')}>
-                  <Image contentFit='contain' source={require("../assets/group13.png")} style={{width:50, height: 50,  marginTop: 55, marginBottom: 25, alignSelf:'flex-start', marginLeft:10 }} transition={1000}/>
-                  <View style={{ justifyContent:'flex-start', alignItems:'flex-start', marginTop: 50}}>
-                    <Text style={{textAlign:'left', color:Color.steelblue, fontFamily: 'poppinsRegular', fontSize:10}}>Availability</Text>
+          
 
-                  </View>
-                  <View style={{marginBottom:'30%'}}/>
-                </TouchableOpacity>
+          <View style={{marginRight:10, marginTop:5}}>
+          
+            <TouchableOpacity style={[styles.availability, {paddingLeft:8}]} onPress={() => navigation.navigate('Availability')}>
+              <Image contentFit='contain' source={require("../assets/group13.png")} style={{width:50, height: 50,  marginTop: 55, marginBottom: 25, alignSelf:'flex-start', marginLeft:10 }} transition={1000}/>
+              <View style={{ justifyContent:'flex-start', alignItems:'flex-start', marginTop: 50}}>
+                <Text style={{textAlign:'left', color:Color.steelblue, fontFamily: 'poppinsRegular', fontSize:10}}>Availability</Text>
 
-                
               </View>
+              <View style={{marginBottom:'30%'}}/>
+            </TouchableOpacity>
 
-          </ScrollView>
-        </View>
-
-
-        </View>
-      {/* {
-        trend.length === 0 ? null :
-        <>
-        <View style={{marginTop:10, marginBottom:20}}>
-          <Text style={{fontSize:15, marginLeft:10, fontFamily:'poppinsSemiBold'}}>Trending Service</Text>
-          {
-            trend.map((item, key) => {
-              return(
-                <View key={key} style={[styles.shadowProps, {flexDirection:'row', borderWidth:1, borderColor:Color.darkolivegreen_100, height:HEIGHT*0.1, alignSelf:'center', borderRadius:10,  width:WIDTH*0.8, margin:10, padding:10, marginLeft:20}]}>
-                  <View style={{padding:10, borderColor:Color.darkolivegreen_100, borderWidth:1, borderRadius:10, top:10, left:-25, position:'absolute', backgroundColor:'white'}}>
-                    <Text><Entypo name="tools" size={30} color={Color.darkolivegreen_100} />,</Text>
-                  </View>
-
-                  <View style={{marginLeft:30,  flex:1, justifyContent:'center'}}>
-                      
-                      <View>
-                        <Text style={{fontFamily:'poppinsSemiBold', fontSize:13}}>{item.sub_category}</Text>
-                      </View>
-
-                      <View style={{flexDirection:'row',justifyContent:'space-between'}}>
-                        <Text style={{fontFamily:'poppinsRegular', fontSize:10}}>Min Price: {item.min_agreed_price.toLocaleString()}</Text>
-                        <Text style={{fontFamily:'poppinsRegular', fontSize:10}}>Max Price: {item.max_agreed_price.toLocaleString()}</Text>
-                    </View>
-                  </View>
-                </View>
-              )
-            })
-          }
-         
-        <Text style={{fontSize:15, marginLeft:10, fontFamily:'poppinsSemiBold'}}>Top Selling Product</Text>
-        </View>
-        </>
-      } */}
-
-        <View style={{marginBottom:'23%'}}/>
+            
+          </View>
 
       </ScrollView>
-    </SafeAreaView>
+    </View>
+    </View>
+    {/* {
+      trend.length === 0 ? null :
+      <>
+      <View style={{marginTop:10, marginBottom:20}}>
+        <Text style={{fontSize:15, marginLeft:10, fontFamily:'poppinsSemiBold'}}>Trending Service</Text>
+        {
+          trend.map((item, key) => {
+            return(
+              <View key={key} style={[styles.shadowProps, {flexDirection:'row', borderWidth:1, borderColor:Color.darkolivegreen_100, height:HEIGHT*0.1, alignSelf:'center', borderRadius:10,  width:WIDTH*0.8, margin:10, padding:10, marginLeft:20}]}>
+                <View style={{padding:10, borderColor:Color.darkolivegreen_100, borderWidth:1, borderRadius:10, top:10, left:-25, position:'absolute', backgroundColor:'white'}}>
+                  <Text><Entypo name="tools" size={30} color={Color.darkolivegreen_100} />,</Text>
+                </View>
+
+                <View style={{marginLeft:30,  flex:1, justifyContent:'center'}}>
+                    
+                  <View>
+                    <Text style={{fontFamily:'poppinsSemiBold', fontSize:13}}>{item.sub_category}</Text>
+                  </View>
+
+                  <View style={{flexDirection:'row',justifyContent:'space-between'}}>
+                    <Text style={{fontFamily:'poppinsRegular', fontSize:10}}>Min Price: {item.min_agreed_price.toLocaleString()}</Text>
+                    <Text style={{fontFamily:'poppinsRegular', fontSize:10}}>Max Price: {item.max_agreed_price.toLocaleString()}</Text>
+                </View>
+                </View>
+              </View>
+            )
+          })
+        }
+        
+      <Text style={{fontSize:15, marginLeft:10, fontFamily:'poppinsSemiBold'}}>Top Selling Product</Text>
+      </View>
+      </>
+    } */}
+      <View style={{marginBottom:'23%'}}/>
+    </ScrollView>
+  </SafeAreaView>
   )
 }
 
@@ -468,7 +500,6 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     padding:10
   },
-  
   acceptedrequest:{
     height: HEIGHT * 0.12,
     backgroundColor: Color.limegreen_100,
@@ -516,7 +547,6 @@ const styles = StyleSheet.create({
     borderRadius: Border.br_3xs,
     width: DIMENSION.WIDTH * 0.4,
     marginBottom:10,
-
   },
   wrapper: {
     height: HEIGHT * 0.18,
@@ -573,12 +603,9 @@ const styles = StyleSheet.create({
     backgroundColor: Color.darkolivegreen_100,
     borderRadius: 10,
   },
-
-
-
   text: {
     color: '#fff',
     fontSize: 20,
     fontFamily:'poppinsSemiBold'
-  }
+  },
 })

@@ -541,7 +541,7 @@ const Disco = ({route, navigation}) => {
                         <Text  style={{fontFamily:'poppinsRegular', fontSize:10}}>{token}</Text>
                       </View> 
 
-                      <View style={{justifyContent:'space-between', flexDirection:'row'}}>
+                      {/* <View style={{justifyContent:'space-between', flexDirection:'row'}}>
                         <Text style={{fontFamily:'poppinsRegular', fontSize:10}}>Bonus Token:</Text>
                         <Text  style={{fontFamily:'poppinsRegular', fontSize:10}}></Text>
                       </View> 
@@ -585,7 +585,7 @@ const Disco = ({route, navigation}) => {
                       <View style={{justifyContent:'space-between', flexDirection:'row'}}>
                         <Text style={{fontFamily:'poppinsRegular', fontSize:10}}>Date :</Text>
                         <Text  style={{fontFamily:'poppinsRegular', fontSize:10}}>{date} {time}</Text>
-                      </View>
+                      </View> */}
 
                        {/* <View style={{flexDirection:'row', justifyContent:'space-evenly', alignItems:'center', marginTop: 20,}}>
                         

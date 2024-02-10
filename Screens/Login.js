@@ -4,7 +4,7 @@ import { Color, marginStyle } from '../Components/Ui/GlobalStyle'
 import { Image } from 'expo-image'
 import {Ionicons} from '@expo/vector-icons'
 import Flat from '../Components/Ui/Flat'
-import { LoginUrl, LoginWithBiometric } from '../Utils/AuthRoute'
+import { ConvertPassword, LoginUrl, LoginWithBiometric } from '../Utils/AuthRoute'
 import { AuthContext } from '../Utils/AuthContext'
 import LoadingOverlay from '../Components/Ui/LoadingOverlay'
 import Input from '../Components/Ui/Input'
@@ -44,6 +44,32 @@ const Login = ({navigation}) => {
     })
   }
 
+  const convertpasswordget = async () => {
+    const emailcheck = email.includes('@') && email.includes(".com")
+    const passwordcheck = password.length < 7
+
+    // console.log(emailcheck, passwordcheck)
+
+    if(!emailcheck || passwordcheck){
+      setemailinvalid(!emailcheck)
+      setpasswordinvalid(passwordcheck)
+      Alert.alert('Invalid details', 'Please check your entered credentials.')
+    }else{
+      try {
+        setisloading(true)
+        const response = await ConvertPassword(password)
+        console.log(response)
+        const passwordcon = response
+        loginhandler(passwordcon)
+      } catch (error) {
+        setisloading(true)
+        console.log(error.response)
+        Alert.alert("Error", "An error occured")
+        setisloading(false)
+      }
+    }
+  }
+
   const cleardata = () => {
     setemail('')
     setpassword('')
@@ -79,43 +105,32 @@ const Login = ({navigation}) => {
   console.log(password + " Password")
 
 
-  const loginhandler = async () => {
-    const emailcheck = email.includes('@') && email.includes(".com")
-    const passwordcheck = password.length < 7
-
-    // console.log(emailcheck, passwordcheck)
-
-    if(!emailcheck || passwordcheck){
-      setemailinvalid(!emailcheck)
-      setpasswordinvalid(passwordcheck)
-      Alert.alert('Invalid details', 'Please check your entered credentials.')
-    }else{
-      try {
-        const passwordMd5 = Base64.encode(password)
-        // alert(passwordMd5 )
-        setisloading(true)
-        const response = await LoginUrl(email, passwordMd5)
-        console.log(response.data)
-        authCtx.authenticated(response.data.access_token)  
-        authCtx.supplierId(response.data.id)
-        authCtx.supplierEmail(response.data.email)
-        authCtx.supplierFirstName(response.data.first_name)
-        authCtx.supplierLastName(response.data.last_name)
-        authCtx.supplierBalance(response.data.wallet_balance)
-        authCtx.supplierPhone(response.data.phone)
-        authCtx.supplierPicture(response.data.picture)
-        authCtx.supplierShowAmount('show')
-        authCtx.supplieruserid(response.data.user_id)
-        authCtx.supplierlastLoginTimestamp(new Date().toString())
-        AsyncStorage.setItem("checktime",new Date().toString())
-        // console.log(response.total_points + " total point")
-        setisloading(false)
-      } catch (error) {
-        setisloading(true)
-        console.log(error.response.data)
-        Alert.alert('Login Failed', error.response.data.message)
-        setisloading(false)
-      }
+  const loginhandler = async (conpass) => {
+    try {
+      // const passwordMd5 = Base64.encode(password)
+      // alert(passwordMd5 )
+      setisloading(true)
+      const response = await LoginUrl(email, conpass)
+      console.log(response.data)
+      authCtx.authenticated(response.data.access_token)  
+      authCtx.supplierId(response.data.id)
+      authCtx.supplierEmail(response.data.email)
+      authCtx.supplierFirstName(response.data.first_name)
+      authCtx.supplierLastName(response.data.last_name)
+      authCtx.supplierBalance(response.data.wallet_balance)
+      authCtx.supplierPhone(response.data.phone)
+      authCtx.supplierPicture(response.data.picture)
+      authCtx.supplierShowAmount('show')
+      authCtx.supplieruserid(response.data.user_id)
+      authCtx.supplierlastLoginTimestamp(new Date().toString())
+      AsyncStorage.setItem("checktime",new Date().toString())
+      // console.log(response.total_points + " total point")
+      setisloading(false)
+    } catch (error) {
+      setisloading(true)
+      console.log(error.response.data)
+      Alert.alert('Login Failed', error.response.data.message)
+      setisloading(false)
     }
   }
 
@@ -149,7 +164,7 @@ const Login = ({navigation}) => {
         autoCapitalize={"none"}
       />
     </View>
-    <SubmitButton style={{marginHorizontal:50, marginTop:10}} message={"Login"} onPress={loginhandler}/>
+    <SubmitButton style={{marginHorizontal:50, marginTop:10}} message={"Login"} onPress={convertpasswordget}/>
 
       <TouchableOpacity style={{alignItems:'center', justifyContent:'center', marginTop: 10}} onPress={() => onAuthenticate()}>
         {

@@ -15,6 +15,7 @@ export const AuthContext = createContext({
     sessionid: "",
     showAmount: "",
     lastLoginTimestamp: "",
+    sumtot:'',
     points: "",
     userid: "",
 
@@ -32,6 +33,7 @@ export const AuthContext = createContext({
     supplierlastLoginTimestamp : (lastLoginTimestamp) => {},
     supplierPoints: (points) => {},
     supplieruserid: (userid) => {},
+    suppliersumtot: (sumtot) => {},
     logout: () => {}
 })
 
@@ -50,6 +52,8 @@ function AuthContextProvider({children}){
     const [authlogintime, setauthlogintime] = useState()
     const [authpoint, setauthpoint] = useState()
     const [authuserid, setauthuserid] = useState()
+    const [authsumtot, setauthsumtot] = useState()
+
 
     if(IsLogout){
         return <LoadingOverlay/>
@@ -76,6 +80,18 @@ function AuthContextProvider({children}){
         setauthEmail(email)
         AsyncStorage.setItem('supplierEmail', email)
     }
+
+    function suppliersumtot(number){
+        if(number === null || number === "" || number === undefined || number === 0){
+            setauthsumtot('0.00')
+            AsyncStorage.setItem('suppliersumtot', '0.00')
+        }else{
+            const numbercheck = number.toLocaleString()
+            setauthsumtot(numbercheck)
+            AsyncStorage.setItem('suppliersumtot', numbercheck)
+        }
+    }
+
 
     function supplieruserid(userid){
         setauthuserid(userid)
@@ -169,6 +185,7 @@ function AuthContextProvider({children}){
         setauthlogintime(null)
         setauthpoint(null)
         setauthuserid(null)
+        setauthsumtot(null)
         AsyncStorage.removeItem('suppliertoken')
         AsyncStorage.removeItem('supplierId')
         AsyncStorage.removeItem('supplierPhone')
@@ -182,6 +199,7 @@ function AuthContextProvider({children}){
         AsyncStorage.removeItem('supplierlastLoginTimestamp')
         AsyncStorage.removeItem('supplierPoints')
         AsyncStorage.removeItem('supplieruserid')
+        AsyncStorage.removeItem('suppliersumtot')
         setIsLogout(false)
     }
 
@@ -200,6 +218,7 @@ function AuthContextProvider({children}){
         lastLoginTimestamp: authlogintime,
         points: authpoint,
         userid: authuserid,
+        sumtot: authsumtot,
 
 
         authenticated:authenticated,
@@ -215,6 +234,7 @@ function AuthContextProvider({children}){
         supplierlastLoginTimestamp: supplierlastLoginTimestamp,
         supplierPoints: supplierPoints,
         supplieruserid:supplieruserid,
+        suppliersumtot: suppliersumtot,
         logout: logout
     }
 

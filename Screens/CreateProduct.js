@@ -97,7 +97,7 @@ const CreateProduct = ({navigation}) => {
                 setisloading(true)
                 const response = await SupplierProductStore(id, authCtx.Id, name, description, price, shippingcost, avail, authCtx.token)
                 console.log(response)
-                Alert.alert("Successfull", "Product created successfully", [
+                Alert.alert("Successful", "Product created successfully", [
                     {
                         text: "Ok",
                         onPress: () => navigation.goBack()
@@ -127,7 +127,7 @@ const CreateProduct = ({navigation}) => {
 
   return (
     <SafeAreaView style={{marginTop:marginStyle.marginTp, marginHorizontal:10}}>
-        <GoBack>Back</GoBack>
+        <GoBack onPress={() => navigation.goBack()}>Back</GoBack>
       <Text style={styles.createtxt}>CreateProduct</Text>
 
     <ScrollView style={{marginHorizontal:10}} showsVerticalScrollIndicator={false}>

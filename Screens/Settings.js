@@ -1,13 +1,16 @@
-import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React, { useContext } from 'react'
+import { Alert, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import React, { useContext, useState } from 'react'
 import {MaterialCommunityIcons, Ionicons, Feather, MaterialIcons} from '@expo/vector-icons'
 import GoBack from '../Components/Ui/GoBack'
 import { Color, marginStyle } from '../Components/Ui/GlobalStyle'
 import { AuthContext } from '../Utils/AuthContext'
 import * as Updates from 'expo-updates'
+import { DeleteAccount } from '../Utils/AuthRoute'
+import LoadingOverlay from '../Components/Ui/LoadingOverlay'
 
 const Settings = ({navigation}) => {
     const authCtx = useContext(AuthContext)
+    const [isloading, setisloading] = useState(false)
 
     const triggerUpdateCheck = async () => {
       try {
@@ -23,13 +26,55 @@ const Settings = ({navigation}) => {
       }
     }
 
+    useEffect(() => {
+      const sumtot = navigation.addListener('focus', async () => {
+        try {
+          const response = await RequestSumTotal(authCtx.Id , authCtx.token)
+          console.log(response)
+            authCtx.suppliersumtot(response)
+        } catch (error) {
+          return;
+        }
+      })
+      return sumtot
+    }, [])
+
+    const deleteAccountpermanently = async () => {
+      try {
+        setisloading(true)
+        const response = await DeleteAccount(authCtx.Id, authCtx.token)
+        console.log(response)
+        Alert.alert('Success', "Your account has been deleted successfully", [
+          {
+            text: "Ok",
+            onPress: () => authCtx.logout()
+          }
+        ])
+        setisloading(false)
+      } catch (error) {
+        setisloading(true)
+        Alert.alert('Error', "An error occured while deleting your account", [
+          {
+            text: "Ok",
+            onPress: () => {}
+          }
+        ])
+        console.log(error.response)
+        setisloading(false)
+      }
+    }
+
+    if(isloading){
+      return <LoadingOverlay message={"..."}/>
+    }
+
   return (
     <View style={{marginTop:marginStyle.marginTp, marginHorizontal:10}}>
     <GoBack onPress={() => navigation.goBack()}>Back</GoBack>
     <Text style={styles.settingstxt}>Settings</Text>
 
 
-    <View style={{padding:15 }}>
+    <ScrollView style={{ padding:15}} showsVerticalScrollIndicator={false}>
         
 
         <TouchableOpacity style={{ alignItems: 'flex-start', borderBottomWidth:1,}} onPress={() => navigation.navigate("Compliance")}>
@@ -75,12 +120,12 @@ const Settings = ({navigation}) => {
         </TouchableOpacity>
 
         <TouchableOpacity style={{ alignItems: 'flex-start', borderBottomWidth:1,}} onPress={() => triggerUpdateCheck()}>
-            <View style={{ flexDirection: 'row',   paddingBottom: 15, marginTop: 15 }}>
-            <MaterialIcons name="update" size={24} color="black" />
-              <Text style={styles.textStyle}>Check for Update</Text>
-            </View>
-          </TouchableOpacity>
-      
+          <View style={{ flexDirection: 'row',   paddingBottom: 15, marginTop: 15 }}>
+          <MaterialIcons name="update" size={24} color="black" />
+            <Text style={styles.textStyle}>Check for Update</Text>
+          </View>
+        </TouchableOpacity>
+
         <TouchableOpacity style={{ alignItems: '', justifyContent:'space-between', borderBottomWidth:1, width: '100%'}} onPress={() => Alert.alert("Logout", "Are you sure you want to logout", [
           {
             text:"No",
@@ -97,7 +142,26 @@ const Settings = ({navigation}) => {
             </View>
         </TouchableOpacity>
 
-    </View>
+        <TouchableOpacity style={{ alignItems: 'flex-start', borderBottomWidth:1,}} onPress={() => 
+          Alert.alert("Warning", "Are you sure you want to delete your account permanently from Igoepp", [
+            {
+              text: "No",
+              onPress: () => {}
+            },
+            {
+              text: "Yes",
+              onPress: () => deleteAccountpermanently()
+            }
+          ])
+          }>
+          <View style={{ flexDirection: 'row',   paddingBottom: 15, marginTop: 15 }}>
+          {/* <MaterialIcons name="update" size={24} color="black" /> */}
+          <MaterialIcons name="delete" size={24} color="black" />
+            <Text style={styles.textStyle}>Delete Account</Text>
+          </View>
+        </TouchableOpacity>
+        <View style={{marginBottom:40}}/>
+    </ScrollView>
   </View>
 
   )
