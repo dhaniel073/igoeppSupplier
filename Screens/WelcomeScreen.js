@@ -174,7 +174,7 @@ const WelcomeScreen = ({navigation}) => {
               </TouchableOpacity>
               :
               <TouchableOpacity onPress={() => navigation.navigate('ProfilePicsView')}>
-                <Image transition={1000} source={{uri: `https://phixotech.com/igoepp/public/supplier/${authCtx.picture}`}} style={{width:35, height:35, borderRadius:30, borderWidth:1, top:-5}}/>
+                <Image transition={1000} source={{uri: `https://igoeppms.com/igoepp/public/supplier/${authCtx.picture}`}} style={{width:35, height:35, borderRadius:30, borderWidth:1, top:-5}}/>
               </TouchableOpacity>
             }
             <Text style={styles.hiChris}>Hi {authCtx.firstname}</Text>
@@ -331,7 +331,7 @@ const WelcomeScreen = ({navigation}) => {
                 <>
                 {
                   isLoading ? <LoadingOverlay/> :
-                  <ImageBackground key={key} contentFit='contain' source={{uri: `https://phixotech.com/igoepp/public/slider/${item.slide}`}} style={styles.slide2}></ImageBackground>
+                  <ImageBackground key={key} contentFit='contain' source={{uri: `https://igoeppms.com/igoepp/public/slider/${item.slide}`}} style={styles.slide2}></ImageBackground>
                 }
                 </>
               ))}  

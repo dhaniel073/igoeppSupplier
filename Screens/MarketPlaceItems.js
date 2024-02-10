@@ -266,6 +266,7 @@ const pickImage = async () => {
         <Text style={styles.marketplacetxt}>Product Update</Text>
       </View>
 
+<<<<<<< HEAD
       <TouchableOpacity style={{marginRight:5, marginTop:2}} onPress={() => Alert.alert('Delete Product', 'Are you sure you want to delete this product', [
         {
           text: 'No',
@@ -315,6 +316,32 @@ const pickImage = async () => {
                 
                 </ImageBackground>
             </View>
+=======
+      {fetchedcategory.length === 0  ? <NoItemNote/> :
+        <FlatList
+        showsVerticalScrollIndicator={false}
+        data={fetchedcategory}
+        keyExtractor={(item) => item.id}
+        renderItem={({item}) => 
+          <View style={styles.container}  >
+          <TouchableOpacity style={[styles.pressables]} onPress={() => navigation.navigate("MarketItemPurchase", {
+            productId: item.id,
+            productItemName: item.name,
+            productItemDesc: item.description,
+            productItemimage: item.picture,
+            catId: item.product_category_id,
+            price: item.price,
+            shippingCost: item.shipping_cost,
+            supplierId: item.supplier_id,
+            available: item.available
+
+          })}>
+          <Image
+          style={styles.image2}
+          source={{ uri:`https://igoeppms.com/igoepp/public/products/${item.picture}`}}/>
+            <Text style={styles.item}>{item.name}</Text>
+            
+>>>>>>> bacd05420795edb414c445a0815f6d8df7be4f6e
           </TouchableOpacity>
         </View>
       </View>

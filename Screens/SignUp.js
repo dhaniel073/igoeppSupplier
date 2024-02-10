@@ -124,7 +124,7 @@ const SignUp = ({navigation}) => {
     useEffect(() => {
       var config = {
         method: 'get',
-        url: "https://phixotech.com/igoepp/public/api/general/country2",
+        url: "https://igoeppms.com/igoepp/public/api/general/country2",
         headers:{
           Accept: 'application/json',
           Authorization: `Bearer ${authCtx.token}`
@@ -147,7 +147,11 @@ const SignUp = ({navigation}) => {
         setCountryData(countryArray)
       })
       .catch(function (error) {
+<<<<<<< HEAD
         console.log(error);
+=======
+        // console.log(error);
+>>>>>>> bacd05420795edb414c445a0815f6d8df7be4f6e
         return;
       })
     }, [])
@@ -155,6 +159,7 @@ const SignUp = ({navigation}) => {
   
   
   const handleState = (countryCode) => {
+<<<<<<< HEAD
     var config = {
       method: 'get',
       url: `https://phixotech.com/igoepp/public/api/general/state2/${countryCode}`,
@@ -198,9 +203,58 @@ const SignUp = ({navigation}) => {
   
   const handleCity = (stateCode) => {
     // console.log(stateCode)
+=======
+>>>>>>> bacd05420795edb414c445a0815f6d8df7be4f6e
     var config = {
       method: 'get',
-      url: `https://phixotech.com/igoepp/public/api/general/lga2/${stateCode}`,
+      url: `https://igoeppms.com/igoepp/public/api/general/state2/${countryCode}`,
+      // headers:{
+      //   Accept: 'application/json',
+      //   Authorization: `Bearer ${authCtx.token}`
+      // }
+    }
+    axios(config)
+    .then(function (response) {
+        console.log(JSON.stringify(response.data))
+      var count = Object.keys(response.data.data).length;
+      let stateArray = []
+      for (var i = 0; i < count; i++){
+        stateArray.push({
+          label: response.data.data[i].state_name,
+          value: response.data.data[i].id,
+        })
+        // setStateCode(response.data.data[i].id)
+      }
+      setStateData(stateArray)
+    })
+    .catch(function (error) {
+      // console.log(error);
+      return;
+    })
+  }
+
+  const convertpasswordget = async () => {
+    toggleAcceptTermsModal()
+    try {
+      setIsLoading(true)
+      const response = await ConvertPassword(enteredPassword)
+      console.log(response)
+      const password = response
+      signupSend(password)
+    } catch (error) {
+      setIsLoading(true)
+      console.log(error.response)
+      Alert.alert("Error", "An error occured")
+      setIsLoading(false)
+    }
+  }
+  
+  
+  const handleCity = (stateCode) => {
+    // console.log(stateCode)
+    var config = {
+      method: 'get',
+      url: `https://igoeppms.com/igoepp/public/api/general/lga2/${stateCode}`,
       headers:{
         Accept: 'application/json',
         Authorization: `Bearer ${authCtx.token}`

@@ -2,16 +2,23 @@ import { Alert, FlatList, Platform, SafeAreaView, StyleSheet, Text, TouchableOpa
 import React, { useContext, useEffect, useState } from 'react'
 import { Border, Color, DIMENSION, marginStyle } from '../Components/Ui/GlobalStyle'
 import GoBack from '../Components/Ui/GoBack'
+<<<<<<< HEAD
 import { CustomerRequest, CustomerRequestById, ItemDelivered, ItemDispatched, ItemPackaged, ItemUndelivered, RequestSumTotal, ServiceHis, ServiceHisById } from '../Utils/AuthRoute'
+=======
+import { CustomerRequest, CustomerRequestById } from '../Utils/AuthRoute'
+>>>>>>> bacd05420795edb414c445a0815f6d8df7be4f6e
 import { AuthContext } from '../Utils/AuthContext'
 import {Ionicons} from '@expo/vector-icons'
 import LoadingOverlay from '../Components/Ui/LoadingOverlay'
 import { Image } from 'expo-image'
 import {MaterialIcons} from '@expo/vector-icons'
 import Modal from 'react-native-modal'
+<<<<<<< HEAD
 import { Dropdown } from 'react-native-element-dropdown'
 import axios from 'axios'
 
+=======
+>>>>>>> bacd05420795edb414c445a0815f6d8df7be4f6e
 
 const deliver_status = [
   { label: 'Undelivered', value: 'N' },
@@ -25,6 +32,7 @@ const ViewRequest = ({navigation}) => {
   const authCtx = useContext(AuthContext)
   const [category, setcategory] = useState([])
   const [isloading, setisloading] = useState(false)
+<<<<<<< HEAD
   const [isFetching, setisFetching] = useState(false)
   const [ismodalvisible, setismodalvisible] = useState(false)
   const [isdeliverymodalvisible, setisdeliverymodalvisible] = useState(false)
@@ -37,6 +45,11 @@ const ViewRequest = ({navigation}) => {
   const [IdData, setIdData] = useState([]);
   const [Id, setId] = useState([]);
   const [IsIdcheck, setIsIdcheck] = useState(false)
+=======
+  const [ismodalvisible, setismodalvisible] = useState(false)
+  const [request, setrequest] = useState([])
+  const [state, setstate] = useState([])
+>>>>>>> bacd05420795edb414c445a0815f6d8df7be4f6e
 
   // console.log(authCtx.token)
 
@@ -44,6 +57,7 @@ const ViewRequest = ({navigation}) => {
     const unsuscribe = navigation.addListener('focus', async () => {
       try {
         setisloading(true)
+<<<<<<< HEAD
         const response = await ServiceHis(authCtx.Id, authCtx.token)
         console.log(response)
         const descArr = response.sort().reverse();
@@ -58,12 +72,22 @@ const ViewRequest = ({navigation}) => {
           }
         ])
         // console.log(error.response)
+=======
+        const response = await CustomerRequest(authCtx.Id, authCtx.token)
+        console.log(response)
+        setcategory(response.data)
+        setisloading(false)
+      } catch (error) {
+        setisloading(true)
+        console.log(error.response)
+>>>>>>> bacd05420795edb414c445a0815f6d8df7be4f6e
         setisloading(false)
       }
     }) 
     return unsuscribe;
   }, [])
 
+<<<<<<< HEAD
   useEffect(() => {
     const sumtot = navigation.addListener('focus', async () => {
       try {
@@ -92,10 +116,13 @@ const ViewRequest = ({navigation}) => {
     }
   }
 
+=======
+>>>>>>> bacd05420795edb414c445a0815f6d8df7be4f6e
   const toggleModal = () => {
     setismodalvisible(!ismodalvisible)
   }
 
+<<<<<<< HEAD
   const toggledeliveryModal = (id) => {
     const idget = id
     setId(idget)
@@ -284,12 +311,24 @@ const ViewRequest = ({navigation}) => {
       packagedhandle()
     }else{
       return;
+=======
+  const showRequest = async (id) => {
+    console.log(id)
+    try {
+      const response = await CustomerRequestById(id, authCtx.token)
+      console.log(response)
+      setrequest(response)
+    } catch (error) {
+      console.log(error)
+      Alert.alert("Error", "An error occured, try again later")
+>>>>>>> bacd05420795edb414c445a0815f6d8df7be4f6e
     }
   }
 
   if(isloading){
     return <LoadingOverlay message={"..."}/>
   }
+<<<<<<< HEAD
 
   const NoSubCategoryNote = () => {
     return (
@@ -305,6 +344,8 @@ const ViewRequest = ({navigation}) => {
     // item dispatched = 'R'
     // item packaged = 'P'
   // } 
+=======
+>>>>>>> bacd05420795edb414c445a0815f6d8df7be4f6e
   
   return (
     <SafeAreaView style={{marginTop:marginStyle.marginTp, marginHorizontal:10}}>
@@ -349,9 +390,14 @@ const ViewRequest = ({navigation}) => {
             } */}
 
  
+<<<<<<< HEAD
               {/* <View style={{justifyContent:'space-evenly', borderWidth:1, flex:1, alignItems:'flex-end', alignSelf:'flex-start', flexDirection:'row',marginTop: 15, marginLeft:20, marginBottom:10}}> */}
               <View style={{flexDirection:'row', justifyContent:'space-evenly', marginTop: 15, marginBottom:10}}>
                 <TouchableOpacity style={styles.cancelbtn} onPress={() => [toggleModal(), showRequest(item.id)]}>
+=======
+              <View style={{justifyContent:'space-evenly', alignItems:'flex-end', alignSelf:'flex-start', flexDirection:'row',marginTop: 15, marginLeft:20, marginBottom:10}}>
+                <TouchableOpacity style={styles.cancelbtn} onPress={() => [toggleModal(), showRequest(item.purchase_id)]}>
+>>>>>>> bacd05420795edb414c445a0815f6d8df7be4f6e
                   <Text style={styles.canceltext}>View Request</Text>
               </TouchableOpacity>
 
@@ -365,6 +411,7 @@ const ViewRequest = ({navigation}) => {
           </View>
         )}
       />
+<<<<<<< HEAD
       }
      <View style={{marginBottom:50}}/>
 
@@ -383,10 +430,27 @@ const ViewRequest = ({navigation}) => {
                   data={request}
                   keyExtractor={(item) => item.id}
                   showsVerticalScrollIndicator={false}
+=======
+        <View style={{marginBottom:50}}/>
+
+        <Modal isVisible={ismodalvisible}>
+            <SafeAreaView style={styles.centeredView}>
+            <TouchableOpacity style={{justifyContent:'flex-end', alignSelf:'flex-end', marginBottom:5, }} onPress={() => toggleModal()}>
+              <MaterialIcons name="cancel" size={30} color="white" />
+            </TouchableOpacity>
+            <View style={styles.modalView}>
+              <Text style={styles.modalText}>Details</Text>
+
+                {isloading ? <LoadingOverlay/> : 
+                <FlatList
+                  data={request}
+                  keyExtractor={(item) => item.id}
+>>>>>>> bacd05420795edb414c445a0815f6d8df7be4f6e
                   renderItem={({item}) => (
                     <View>
                       {
                         Platform.OS === 'android' ?
+<<<<<<< HEAD
                           <Image source={require("../assets/igoepp_transparent2.png")} style={{height:130, width:130, position:'absolute', alignContent:'center', alignSelf:'center', top:DIMENSION.HEIGHT * 0.07,justifyContent:'center', opacity:0.3, }} contentFit='contain'/>
                         :
                         <Image source={require("../assets/igoepp_transparent2.png")} style={{height:130, width:130, position:'absolute', alignContent:'center', alignSelf:'center', top:DIMENSION.HEIGHT * 0.05,justifyContent:'center', opacity:0.3, }} contentFit='contain'/>
@@ -448,20 +512,64 @@ const ViewRequest = ({navigation}) => {
                       <View style={{justifyContent:'space-between', flexDirection:'row'}}>
                         <Text style={{fontFamily:'poppinsRegular', fontSize:11}}>Phone Number :</Text>
                         <Text style={{fontFamily:'poppinsRegular', maxWidth:'80%', fontSize:11}}>{item.delivery_phone}</Text>
+=======
+                          <Image source={require("../assets/igoepp_transparent2.png")} style={{height:130, width:130, position:'absolute', alignContent:'center', alignSelf:'center', top:DIMENSION.HEIGHT * 0.1,justifyContent:'center', opacity:0.3, }} contentFit='contain'/>
+                        :
+                        <Image source={require("../assets/igoepp_transparent2.png")} style={{height:130, width:130, position:'absolute', alignContent:'center', alignSelf:'center', top:DIMENSION.HEIGHT * 0.05,justifyContent:'center', opacity:0.3, }} contentFit='contain'/>
+                      }
+
+                      <View style={{justifyContent:'space-between', flexDirection:'row'}}>
+                        <Text style={{fontFamily:'poppinsRegular', fontSize:11}}>Price : </Text>
+                        <Text style={{fontFamily:'poppinsRegular', fontSize:11}}>{item.agreed_price === null ? '0.00' : item.agreed_price}</Text>
+                      </View>
+
+                      <View style={{justifyContent:'space-between', flexDirection:'row',  alignItems:'center', }}>
+                        <Text style={{marginRight: 20, marginBottom:5, fontSize:11}}>Description :</Text>
+                        <Text style={{fontFamily:'poppinsRegular', maxWidth:'70%', textAlign:'right', fontSize:11}}>{item.help_desc}</Text>
+                      </View>
+
+                      <View style={{justifyContent:'space-between', flexDirection:'row'}}>
+                        <Text style={{fontFamily:'poppinsRegular', fontSize:11}}>Help Intervals :</Text>
+                        <Text style={{fontFamily:'poppinsRegular', fontSize:11}}>{item.help_frequency}</Text>
+                      </View>
+
+                      <View style={{justifyContent:'space-between', flexDirection:'row'}}>
+                        <Text style={{fontFamily:'poppinsRegular', fontSize:11}}>Landmark :</Text>
+                        <Text style={{fontFamily:'poppinsRegular', fontSize:11}}>{item.help_landmark}</Text>
+                      </View>
+
+                      <View style={{justifyContent:'space-between', flexDirection:'row'}}>
+                        <Text style={{fontFamily:'poppinsRegular', fontSize:11}}>Request Type :</Text>
+                        <Text style={{fontFamily:'poppinsRegular', fontSize:11}}>{item.preassessment_flg === "N" ? "Normal Request" : "Preassessment Request"}</Text>
+                      </View>
+
+                      <View style={{justifyContent:'space-between', flexDirection:'row'}}>
+                        <Text style={{fontFamily:'poppinsRegular', fontSize:11}}>Address :</Text>
+                        <Text style={{fontFamily:'poppinsRegular', maxWidth:'80%', fontSize:11}}>{item.help_location}</Text>
+>>>>>>> bacd05420795edb414c445a0815f6d8df7be4f6e
                       </View>
 
                       <View style={{justifyContent:'space-between', flexDirection:'row'}}>
                         <Text style={{fontFamily:'poppinsRegular', fontSize:11}}>Country :</Text>
+<<<<<<< HEAD
                         <Text style={{fontFamily:'poppinsRegular', fontSize:11}}>{item.delivery_country}</Text>
+=======
+                        <Text style={{fontFamily:'poppinsRegular', fontSize:11}}>{item.help_country}</Text>
+>>>>>>> bacd05420795edb414c445a0815f6d8df7be4f6e
                       </View>
 
                       <View style={{justifyContent:'space-between', flexDirection:'row'}}>
                         <Text style={{fontFamily:'poppinsRegular', fontSize:11}}>State :</Text>
+<<<<<<< HEAD
                         <Text  style={{fontFamily:'poppinsRegular', fontSize:11}}>{item.delivery_state}</Text>
+=======
+                        <Text  style={{fontFamily:'poppinsRegular', fontSize:11}}>{item.help_state}</Text>
+>>>>>>> bacd05420795edb414c445a0815f6d8df7be4f6e
                       </View>
 
                       <View style={{justifyContent:'space-between', flexDirection:'row'}}>
                         <Text style={{fontFamily:'poppinsRegular', fontSize:11}}>L.G.A :</Text>
+<<<<<<< HEAD
                         <Text  style={{fontFamily:'poppinsRegular', fontSize:11}}>{item.delivery_lga}</Text>
                       </View>
 
@@ -479,10 +587,24 @@ const ViewRequest = ({navigation}) => {
                       <View style={{justifyContent:'space-between', flexDirection:'row'}}>
                         <Text style={{fontFamily:'poppinsRegular',  fontSize:11}}>Sum Total :</Text>
                         <Text  style={{fontFamily:'poppinsRegular', fontSize:11}}>{item.sub_total_amount}</Text>
+=======
+                        <Text  style={{fontFamily:'poppinsRegular', fontSize:11}}>{item.help_lga}</Text>
+                      </View>
+
+                      <View style={{justifyContent:'space-between', flexDirection:'row'}}>
+                        <Text style={{fontFamily:'poppinsRegular', fontSize:11}}>Help Size :</Text>
+                        <Text  style={{fontFamily:'poppinsRegular',fontSize:11}}>{item.help_size}</Text>
+                      </View>
+                      
+                      <View style={{justifyContent:'space-between', flexDirection:'row'}}>
+                        <Text style={{fontFamily:'poppinsRegular',  fontSize:11}}>Landmark :</Text>
+                        <Text  style={{fontFamily:'poppinsRegular', fontSize:11}}>{item.help_landmark}</Text>
+>>>>>>> bacd05420795edb414c445a0815f6d8df7be4f6e
                       </View>
 
                       <View style={{justifyContent:'space-between', flexDirection:'row'}}>
                         <Text style={{fontFamily:'poppinsRegular', fontSize:11}}>Status :</Text>
+<<<<<<< HEAD
                         <Text  style={{fontFamily:'poppinsRegular', fontSize:11}}>{item.delivery_status === "R" ? "Dispatched" : item.delivery_status === "P" ? "Packaged" : item.delivery_status === "D" ? "Delivered" : "Undelivered"}</Text>
                       </View>
 
@@ -492,6 +614,20 @@ const ViewRequest = ({navigation}) => {
                         <Text style={{fontFamily:'poppinsRegular', fontSize:11}}>Date :</Text>
                         <Text  style={{fontFamily:'poppinsRegular', fontSize:11}}>{item.updated_at}</Text>
                       </View> */}
+=======
+                        <Text  style={{fontFamily:'poppinsRegular', fontSize:11}}>{item.help_status === "A" ? "Active" : item.help_status === "N" ? "Negotiating" : item.help_status === "C" ? "Completed" : "Cancelled"}</Text>
+                      </View>
+
+                      <View style={{justifyContent:'space-between', flexDirection:'row'}}>
+                        <Text style={{fontFamily:'poppinsRegular', fontSize:11}}>Date :</Text>
+                        <Text  style={{fontFamily:'poppinsRegular', fontSize:11}}>{item.help_date}</Text>
+                      </View>
+
+                      <View style={{justifyContent:'space-between', flexDirection:'row'}}>
+                        <Text style={{fontFamily:'poppinsRegular', fontSize:11}}>Time :</Text>
+                        <Text  style={{fontFamily:'poppinsRegular', fontSize:11}}>{item.help_time}</Text>
+                      </View>
+>>>>>>> bacd05420795edb414c445a0815f6d8df7be4f6e
                     </View>
                   )}    
                 />
@@ -501,6 +637,7 @@ const ViewRequest = ({navigation}) => {
             </SafeAreaView>
           </Modal>
 
+<<<<<<< HEAD
 
           <Modal isVisible={isdeliverymodalvisible} style={{maxHeight: DIMENSION.HEIGHT * 0.80, marginTop:DIMENSION.HEIGHT * 0.07}}>
             <SafeAreaView style={styles.centeredView}>
@@ -570,6 +707,8 @@ const ViewRequest = ({navigation}) => {
             </SafeAreaView>
           </Modal>
 
+=======
+>>>>>>> bacd05420795edb414c445a0815f6d8df7be4f6e
     </SafeAreaView>
   )
 }
@@ -577,6 +716,7 @@ const ViewRequest = ({navigation}) => {
 export default ViewRequest
 
 const styles = StyleSheet.create({
+<<<<<<< HEAD
   inputInvalid: {
     backgroundColor: Color.error100,
   },
@@ -602,6 +742,8 @@ const styles = StyleSheet.create({
   placeholderStyle: {
     fontSize: 16,
   },
+=======
+>>>>>>> bacd05420795edb414c445a0815f6d8df7be4f6e
   centeredView: {
     flex: 1,
     // backgroundColor: Color.light_black,
