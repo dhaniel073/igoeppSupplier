@@ -641,7 +641,7 @@ const SignUp = ({navigation}) => {
       <Text style={{textAlign:'center'}}>SUPPLIER SERVICE LEVEL AGREEMENT</Text> 
     </View>
 
-    <Text> A.	SERVICE LEVEL AGREEMENT(SLA)</Text>
+    <Text>  A.	SERVICE LEVEL AGREEMENT(SLA)</Text>
 
     <Text style={styles.textsty}> 
       1.	Services to be Performed
