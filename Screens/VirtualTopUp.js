@@ -116,7 +116,7 @@ export const VirtualTopUp = ({navigation, route}) => {
 
   useEffect(() => {
     setisloading(true)
-    const url = `https://igoeppms.com/igoepp/public/api/auth/billpayment/getAllBillersByCategory/${authId}`
+    const url = `https://phixotech.com/igoepp/public/api/auth/billpayment/getAllBillersByCategory/${authId}`
     const response = axios.get(url, {
         headers:{
             Accept:'application/json',
@@ -154,7 +154,7 @@ export const VirtualTopUp = ({navigation, route}) => {
 const getBouquets = (value) => {
     // console.log(authId, id)
     
-    const url = `https://igoeppms.com/igoepp/public/api/auth/billpayment/getAllBouquetByBillerID/${authId}/${value}`
+    const url = `https://phixotech.com/igoepp/public/api/auth/billpayment/getAllBouquetByBillerID/${authId}/${value}`
     const response = axios.get(url, {
         headers:{
             Accept:'application/json',
@@ -420,7 +420,7 @@ const getBouquets = (value) => {
             }
           ])
           setisloading(false)
-        console.log(error)
+        console.log(error.response)
     }
   }
 
@@ -472,10 +472,11 @@ const datatoptup = async() => {
   if(isloading){
     return <LoadingOverlay message={"..."}/>
   }
+  
   return (
     <ScrollView style={{marginTop:marginStyle.marginTp, marginHorizontal:10}}>
       <GoBack onPress={() => navigation.goBack()}>Back</GoBack>
-      <Text style={styles.virtualtopuptxt}>VirtualTopUp</Text>
+      <Text style={styles.virtualtopuptxt}>Virtual TopUp</Text>
 
       
       {
@@ -671,7 +672,7 @@ const datatoptup = async() => {
         <MaterialIcons name="cancel" size={30} color="white" />
       </TouchableOpacity>
       <View style={styles.modalView}>
-      <Image source={require("../assets/igoepp_transparent2.png")} style={{height:130, width:130, position:'absolute', alignContent:'center', alignSelf:'center', top:DIMENSION.HEIGHT * 0.1,justifyContent:'center', opacity:0.3, }} contentFit='contain'/>
+      <Image source={require("../assets/igoepp_transparent2.png")} style={{height:100, width:100, position:'absolute', alignContent:'center', alignSelf:'center', top:DIMENSION.HEIGHT * 0.1,justifyContent:'center', opacity:0.3, }} contentFit='contain'/>
         <Text style={styles.modalText}>Reciept</Text>
           {/* <Text style={{fontFamily:'poppinsRegular'}}>------------------------------</Text> */}
           {
@@ -755,7 +756,8 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     // flex:1,
     alignItems:'center',
-    height: DIMENSION.HEIGHT * 0.4
+    height: Platform.OS === 'ios' ? DIMENSION.HEIGHT * 0.32 : DIMENSION.HEIGHT * 0.4
+
   },
   centeredView: {
     flex: 1,

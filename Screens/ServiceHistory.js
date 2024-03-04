@@ -99,7 +99,7 @@ const ServiceHistory = ({navigation}) => {
   return (
     <View style={{marginTop:marginStyle.marginTp, marginHorizontal:10}}>
       <GoBack onPress={() => navigation.goBack()}>Back</GoBack>
-      <Text style={styles.servicehistorytxt}>ServiceHistory</Text>
+      <Text style={styles.servicehistorytxt}>Service History</Text>
       <>        
           {history.length === 0 ? <NoServiceRequest/> : 
             <>                          

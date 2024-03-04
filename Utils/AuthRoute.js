@@ -1,7 +1,7 @@
 import axios from "axios";
 
 async function signupurl (lastname, firstname, country, state,  city,  email,phone,password, identification_type, identification_num) {
-    const url = `https://igoeppms.com/igoepp/public/api/supplier/store`
+    const url = `https://phixotech.com/igoepp/public/api/supplier/store`
     const response = axios.post(url, {
       "last_name": lastname,
       "first_name": firstname,
@@ -20,7 +20,7 @@ async function signupurl (lastname, firstname, country, state,  city,  email,pho
 }
 
 async function loginurl(email, password){
-    const url = `https://igoeppms.com/igoepp/public/api/igoeppauth/loginsupplier`
+    const url = `https://phixotech.com/igoepp/public/api/igoeppauth/loginsupplier`
     const response = axios.post(url, {
         'username': email,
         'password': password,
@@ -33,7 +33,7 @@ async function loginurl(email, password){
 // 
 
 async function notificationunread(Id, token){
-    const url = `https://igoeppms.com/igoepp/public/api/auth/general/viewpushnotificationcount/${Id}`
+    const url = `https://phixotech.com/igoepp/public/api/auth/general/viewpushnotificationcount/${Id}`
     const response = await axios.get(url, {
       headers:{
         Accept: 'application/json',
@@ -46,7 +46,7 @@ async function notificationunread(Id, token){
 }
 
 async function sliderimage(token){
-    const url = `https://igoeppms.com/igoepp/public/api/auth/general/getSlidesByApp/supplier`
+    const url = `https://phixotech.com/igoepp/public/api/auth/general/getSlidesByApp/supplier`
     const response = await axios.get(url, {
       headers:{
         Accept: 'application/json',
@@ -59,7 +59,7 @@ async function sliderimage(token){
 }
 
 async function trendingservice(token){
-    const url = `https://igoeppms.com/igoepp/public/api/auth/hrequest/fromtodayservicemarkettrend`
+    const url = `https://phixotech.com/igoepp/public/api/auth/hrequest/fromtodayservicemarkettrend`
     const response = axios.get(url, {
         headers:{
             Accept:'application/json',
@@ -71,7 +71,7 @@ async function trendingservice(token){
 }
   
 async function viewalertsetup(id,token){
-    const url = `https://igoeppms.com/igoepp/public/api/auth/supplier/${id}/supplieralertsetupview`
+    const url = `https://phixotech.com/igoepp/public/api/auth/supplier/${id}/supplieralertsetupview`
     const response = axios.get(url, {
         headers:{
             Accept: `application/json`,
@@ -84,7 +84,7 @@ async function viewalertsetup(id,token){
   }
 
   async function enablealert(id, event_type, alert_type, token){
-    const url = `https://igoeppms.com/igoepp/public/api/auth/supplier/supplieralertsetups`
+    const url = `https://phixotech.com/igoepp/public/api/auth/supplier/supplieralertsetups`
     const response = axios.post(url,{
         supplier_id: id,
         event_type: event_type,
@@ -100,7 +100,7 @@ async function viewalertsetup(id,token){
   }
 
   async function biometricsetup(id, fingerprinttoken,  token){
-    const url = `https://igoeppms.com/igoepp/public/api/auth/supplier/setupbiometric`
+    const url = `https://phixotech.com/igoepp/public/api/auth/supplier/setupbiometric`
     const response = axios.post(url, {
       "supplier_id": id,
       "finger_print": fingerprinttoken,
@@ -116,7 +116,7 @@ async function viewalertsetup(id,token){
   }
 
   async function loginwithbiometric(fingerprinttoken){
-    const url = `https://igoeppms.com/igoepp/public/api/igoeppauth/loginsupplierbiometric`
+    const url = `https://phixotech.com/igoepp/public/api/igoeppauth/loginsupplierbiometric`
     const response = axios.post(url, {
       "biometric": fingerprinttoken,
     }) 
@@ -126,7 +126,7 @@ async function viewalertsetup(id,token){
   }
 
   async function disablebiometric(id, token){
-    const url = `https://igoeppms.com/igoepp/public/api/auth/supplier/${id}/disablebiometric`
+    const url = `https://phixotech.com/igoepp/public/api/auth/supplier/${id}/disablebiometric`
     const response = axios.get(url, {
       headers:{
         Accept: 'application/json',
@@ -139,7 +139,7 @@ async function viewalertsetup(id,token){
   }
 
   async function setuppin(id, pin, token){
-    const url = `https://igoeppms.com/igoepp/public/api/auth/supplier/setuppin`
+    const url = `https://phixotech.com/igoepp/public/api/auth/supplier/setuppin`
     const response = axios.post(url, {
       "supplier_id": id,
       "pin": pin,
@@ -154,7 +154,7 @@ async function viewalertsetup(id,token){
   }
   
   async function validatepin(id, pin, token){
-    const url = `https://igoeppms.com/igoepp/public/api/auth/supplier/validatepin`
+    const url = `https://phixotech.com/igoepp/public/api/auth/supplier/validatepin`
     const response = axios.post(url, {
       "supplier_id": id,
       "pin": pin,
@@ -169,7 +169,7 @@ async function viewalertsetup(id,token){
   }
 
   async function updatepin(id, pin, token){
-    const url = `https://igoeppms.com/igoepp/public/api/auth/supplier/resetpin`
+    const url = `https://phixotech.com/igoepp/public/api/auth/supplier/resetpin`
     const response = axios.put(url, {
       "supplier_id": id,
       "pin": pin,
@@ -184,7 +184,7 @@ async function viewalertsetup(id,token){
   }
 
   async function supplierresetpassword(id, password, token){
-    const url = `https://igoeppms.com/igoepp/public/api/auth/supplier/supplierpasswordreset`
+    const url = `https://phixotech.com/igoepp/public/api/auth/supplier/supplierpasswordreset`
     const response = axios.post(url, {
       "id": id,
       "password": password
@@ -199,7 +199,7 @@ async function viewalertsetup(id,token){
   }
 
   async function supplierurl(id, token){
-    const url = `https://igoeppms.com/igoepp/public/api/auth/supplier/${id}`
+    const url = `https://phixotech.com/igoepp/public/api/auth/supplier/${id}`
     const response = axios.get(url,
     {
       headers:{
@@ -212,7 +212,7 @@ async function viewalertsetup(id,token){
   }
 
   async function validateLogin(email, password){
-    const loginUrl = 'https://igoeppms.com/igoepp/public/api/igoeppauth/validateloginsupplier'
+    const loginUrl = 'https://phixotech.com/igoepp/public/api/igoeppauth/validateloginsupplier'
     
     const response = await axios.post(loginUrl, {
       'username': email,
@@ -223,7 +223,7 @@ async function viewalertsetup(id,token){
   }
 
   async function validatebet(id, billerID, betnijaID, token){
-    const url = `https://igoeppms.com/igoepp/public/api/auth/billpayment/validateCustomerBet`
+    const url = `https://phixotech.com/igoepp/public/api/auth/billpayment/validateCustomerBet`
     const response = axios.post(url, {
       "customerID": id,
       "billerID": billerID,
@@ -240,7 +240,7 @@ async function viewalertsetup(id,token){
   }
   // make payment for bet account endpoint
   async function betpay(requestID,amount,token, commission){
-    const url = `https://igoeppms.com/igoepp/public/api/auth/billpayment/betBillPayment`
+    const url = `https://phixotech.com/igoepp/public/api/auth/billpayment/betBillPayment`
     const response = axios.post(url, {
       "requestID": requestID,
       "amount": amount,
@@ -257,7 +257,7 @@ async function viewalertsetup(id,token){
 
   //purchase waec card endpoint
   async function waeccard(id,billerID,bouquetCode,amount,token, commission) {
-    const url = `https://igoeppms.com/igoepp/public/api/auth/billpayment/purchaseWaecPin`
+    const url = `https://phixotech.com/igoepp/public/api/auth/billpayment/purchaseWaecPin`
     const response = axios.post(url, {
       "customerID": id,
       "billerID": billerID,
@@ -278,7 +278,7 @@ async function viewalertsetup(id,token){
 
   //validate customer electricity number
   async function validatedisco(id, billerID, meterID, token){
-    const url = `https://igoeppms.com/igoepp/public/api/auth/billpayment/validateCustomerDisco`
+    const url = `https://phixotech.com/igoepp/public/api/auth/billpayment/validateCustomerDisco`
     const response = axios.post(url, {
       "customerID": id,
       "billerID": billerID,
@@ -297,7 +297,7 @@ async function viewalertsetup(id,token){
 
   // customer electricity payment
   async function discopayment(requestID, amount, token, commission){
-    const url = `https://igoeppms.com/igoepp/public/api/auth/billpayment/discoPayment`
+    const url = `https://phixotech.com/igoepp/public/api/auth/billpayment/discoPayment`
     const response = await axios.post(url, {
       "requestID": requestID,
       "amount": amount,
@@ -315,7 +315,7 @@ async function viewalertsetup(id,token){
 
   // validate multichoice endpoint
   async function validatetv(id, billerID, smartCardID, token){
-    const url = `https://igoeppms.com/igoepp/public/api/auth/billpayment/validateCustomerTv`
+    const url = `https://phixotech.com/igoepp/public/api/auth/billpayment/validateCustomerTv`
     const response = axios.post(url, {
       "customerID": id,
       "billerID": billerID,
@@ -333,7 +333,7 @@ async function viewalertsetup(id,token){
   }
 
   async function tvpay(requestID, amount, bouquetCode, token, commission){
-    const url = `https://igoeppms.com/igoepp/public/api/auth/billpayment/tvPayment`
+    const url = `https://phixotech.com/igoepp/public/api/auth/billpayment/tvPayment`
     const response = axios.post(url, {
       "requestID": requestID,
       "amount": amount,
@@ -352,7 +352,7 @@ async function viewalertsetup(id,token){
 
   //multichoice payment for renewal endpoint
   async function tvrenewalpay(requestID, amount, token, commission){
-    const url = `https://igoeppms.com/igoepp/public/api/auth/billpayment/tvPaymentRenewal`
+    const url = `https://phixotech.com/igoepp/public/api/auth/billpayment/tvPaymentRenewal`
     const response = axios.post(url, {
       "requestID": requestID,
       "amount": amount,
@@ -371,7 +371,7 @@ async function viewalertsetup(id,token){
   
   //validate helper thirdparty phone number
   async function supplierthirdparty(id, phone, token){
-    const url = `https://igoeppms.com/igoepp/public/api/auth/billpayment/validateCustomerPhoneThirdParty`
+    const url = `https://phixotech.com/igoepp/public/api/auth/billpayment/validateCustomerPhoneThirdParty`
     const response = await axios.post(url, {
       "customerID": id,
       "phoneNumber": phone,
@@ -389,7 +389,7 @@ async function viewalertsetup(id,token){
 
   //validate helper self phone number
   async function supplierSelf(id, token){
-    const url = `https://igoeppms.com/igoepp/public/api/auth/billpayment/validateCustomerPhone`
+    const url = `https://phixotech.com/igoepp/public/api/auth/billpayment/validateCustomerPhone`
     const response = await axios.post(url, {
       "customerID": id,
       "type": "S"
@@ -405,7 +405,7 @@ async function viewalertsetup(id,token){
 
   // buy airtime endpoint 
   async function suppliervtuairtime( requestid, billerId, amount, token, commission){
-    const url = `https://igoeppms.com/igoepp/public/api/auth/billpayment/vtuPaymentAirtime`
+    const url = `https://phixotech.com/igoepp/public/api/auth/billpayment/vtuPaymentAirtime`
     const response = await axios.post(url, {
       "requestID": requestid,
       "billerId": billerId,
@@ -424,7 +424,7 @@ async function viewalertsetup(id,token){
 
   //buy data endpoint
   async function suppliervtudata(requestid, billerId, amount, bouquetCode, token, commission){
-    const url = `https://igoeppms.com/igoepp/public/api/auth/billpayment/vtuPaymentData`
+    const url = `https://phixotech.com/igoepp/public/api/auth/billpayment/vtuPaymentData`
     const response = await axios.post(url, {
       "requestID":  requestid,
       "billerId": billerId,
@@ -443,7 +443,7 @@ async function viewalertsetup(id,token){
 
 //validate internet endpoint 
   async function validateinternet(id, billerId, smartCardID, token){
-    const url = `https://igoeppms.com/igoepp/public/api/auth/billpayment/validateCustomerInternet`
+    const url = `https://phixotech.com/igoepp/public/api/auth/billpayment/validateCustomerInternet`
     const response = axios.post(url, {
       "customerID": id,
       "billerID": billerId,
@@ -461,7 +461,7 @@ async function viewalertsetup(id,token){
 
   //pay for internet endpoint
   async function internetPayment(requestID, amount, bouquetCode, token, commission){
-    const url = `https://igoeppms.com/igoepp/public/api/auth/billpayment/internetPayment`
+    const url = `https://phixotech.com/igoepp/public/api/auth/billpayment/internetPayment`
     const response = axios.post(url, {
       "requestID": requestID,
       "amount": amount,
@@ -478,7 +478,7 @@ async function viewalertsetup(id,token){
   }
 
   async function supplierbillercommission(id, token){
-    const url = `https://igoeppms.com/igoepp/public/api/auth/billpayment/getMyBillersByBillerID/${id}`
+    const url = `https://phixotech.com/igoepp/public/api/auth/billpayment/getMyBillersByBillerID/${id}`
     const response = await axios.get(url, {
       headers:{
         Accept: 'application/json',
@@ -490,7 +490,7 @@ async function viewalertsetup(id,token){
   }
 
   async function sendfeedback(id, subject, message, token){
-    const url = `https://igoeppms.com/igoepp/public/api/auth/supplier/supplierfeedback`
+    const url = `https://phixotech.com/igoepp/public/api/auth/supplier/supplierfeedback`
     const response = await axios.post(url,{
       "supplierid": id,
       "subject" : subject,
@@ -507,7 +507,7 @@ async function viewalertsetup(id,token){
   }
 
   async function notification(Id, token){
-    const url = `https://igoeppms.com/igoepp/public/api/auth/general/viewpushnotification/${Id}`
+    const url = `https://phixotech.com/igoepp/public/api/auth/general/viewpushnotification/${Id}`
     const response = await axios.get(url, {
       headers:{
         Accept: 'application/json',
@@ -519,7 +519,7 @@ async function viewalertsetup(id,token){
   }
   
   async function notificationbyid(Id, token){
-    const url = `https://igoeppms.com/igoepp/public/api/auth/general/viewpushnotificationbyid/${Id}`
+    const url = `https://phixotech.com/igoepp/public/api/auth/general/viewpushnotificationbyid/${Id}`
     const response = await axios.get(url, {
       headers:{
         Accept: 'application/json',
@@ -532,7 +532,7 @@ async function viewalertsetup(id,token){
 
   async function availablestore(id, token){
     // console.log(id, token)
-    const url = `https://igoeppms.com/igoepp/public/api/auth/supplier/avialsupplier/${id}`
+    const url = `https://phixotech.com/igoepp/public/api/auth/supplier/avialsupplier/${id}`
     const response = await axios.put(url, {}, {
       headers:{
         Accept:'application/json',
@@ -546,7 +546,7 @@ async function viewalertsetup(id,token){
 
 //helper unavailable store endpoint
 async function unavailablestore(id,token){
-  const url = `https://igoeppms.com/igoepp/public/api/auth/supplier/unavialsupplier/${id}`
+  const url = `https://phixotech.com/igoepp/public/api/auth/supplier/unavialsupplier/${id}`
   const response = await axios.put(url,{}, {
     headers:{
       Accept:'application/json',
@@ -558,7 +558,7 @@ async function unavailablestore(id,token){
 } 
 
 async function updatewallet(amount, id, token){
-  const url = `https://igoeppms.com/igoepp/public/api/auth/supplier/walletupdate`
+  const url = `https://phixotech.com/igoepp/public/api/auth/supplier/walletupdate`
   const response = await axios.post(url, {
     wallet_balance: amount,
     supplier_id: id
@@ -573,7 +573,7 @@ async function updatewallet(amount, id, token){
 }
 
 async function signupsupplier(lastname, firstname, sex, country, state, lga, email, phone, password, address, identification_type,identification_num, referral_code){
-  const url = 'https://igoeppms.com/igoepp/public/api/supplier/store'
+  const url = 'https://phixotech.com/igoepp/public/api/supplier/store'
   const response = await axios.post(url, {
     "last_name": lastname,
     "first_name": firstname,
@@ -595,7 +595,7 @@ async function signupsupplier(lastname, firstname, sex, country, state, lga, ema
 
 //helper upload image/passport endpoint
 async function upload(id, pictureurl, token){
-  const url = `https://igoeppms.com/igoepp/public/api/auth/supplier/uploadpictureapp`
+  const url = `https://phixotech.com/igoepp/public/api/auth/supplier/uploadpictureapp`
   const response = await axios.post(url,{
     picture: pictureurl,
     supplierid: id
@@ -612,7 +612,7 @@ async function upload(id, pictureurl, token){
 
 //guarantors upload details endpoint
 async function guarantorsupload(guarantorsname,guarantorsemail,id,token){
-  const url = `https://igoeppms.com/igoepp/public/api/auth/compliance/sendtoguarantor`
+  const url = `https://phixotech.com/igoepp/public/api/auth/compliance/sendtoguarantor`
   const response = await axios.post(url, {
     name: guarantorsname,
     email:guarantorsemail,
@@ -630,7 +630,7 @@ async function guarantorsupload(guarantorsname,guarantorsemail,id,token){
 
 //guarantors upload ID card image endpoint
 async function supplieruploadIdcard(picture,id,token){
-  const url = `https://igoeppms.com/igoepp/public/api/auth/compliance/uploadsupplieridcard`
+  const url = `https://phixotech.com/igoepp/public/api/auth/compliance/uploadsupplieridcard`
   const response = await axios.post(url, {
     picture: picture,
     supplierid:id,
@@ -647,7 +647,7 @@ async function supplieruploadIdcard(picture,id,token){
 
 //guarantors upload ID card image endpoint
 async function supplieruploadAddressproof(picture,id,token){
-  const url = `https://igoeppms.com/igoepp/public/api/auth/compliance/uploadsupplieraddressdoc`
+  const url = `https://phixotech.com/igoepp/public/api/auth/compliance/uploadsupplieraddressdoc`
   const response = await axios.post(url, {
     picture: picture,
     supplierid:id,
@@ -664,7 +664,7 @@ async function supplieruploadAddressproof(picture,id,token){
 
 //helper update back details endpoint
 async function supplierbankdetails(account, accountname, id, token){
-  const url = `https://igoeppms.com/igoepp/public/api/auth/supplier/accountupdate`
+  const url = `https://phixotech.com/igoepp/public/api/auth/supplier/accountupdate`
   
   const response = await axios.post(url, {
     "account": account,
@@ -683,7 +683,7 @@ async function supplierbankdetails(account, accountname, id, token){
 }
 
 async function forgotsupplierpassword(email){
-  const url = 'https://igoeppms.com/igoepp/public/api/supplier/forgetpassword'
+  const url = 'https://phixotech.com/igoepp/public/api/supplier/forgetpassword'
   const response = await axios.post(url, {
     'email': email
   })
@@ -692,7 +692,7 @@ async function forgotsupplierpassword(email){
 }
 
 async function walletbal(supplierId, token){
-  const url = `https://igoeppms.com/igoepp/public/api/auth/supplier/${supplierId}/wallet`
+  const url = `https://phixotech.com/igoepp/public/api/auth/supplier/${supplierId}/wallet`
     const response = await axios.get(url, {
       headers:{
         Accept: 'application/json',
@@ -705,7 +705,7 @@ async function walletbal(supplierId, token){
 
 
 async function category(token){
-  const response = await axios.get("http://igoeppms.com/igoepp/public/api/auth/globalproductcategory", {
+  const response = await axios.get("http://phixotech.com/igoepp/public/api/auth/globalproductcategory", {
     headers:{
       Accept: 'application/json',
       Authorization: `Bearer ${token}`
@@ -716,7 +716,7 @@ async function category(token){
 }
 
 async function cartitem(categoryId, token){
-  const response = await axios.get(`https://igoeppms.com/igoepp/public/api/auth/productbycatshow/${categoryId}`, {
+  const response = await axios.get(`https://phixotech.com/igoepp/public/api/auth/productbycatshow/${categoryId}`, {
     headers:{
       Accept: 'application/json',
       Authorization: `Bearer ${token}`
@@ -727,7 +727,7 @@ async function cartitem(categoryId, token){
 }
 
 async function suppliercategoryget(id, token){
-  const response = await axios.get(`https://igoeppms.com/igoepp/public/api/auth/productbysupplierid/${id}`, {
+  const response = await axios.get(`https://phixotech.com/igoepp/public/api/auth/productbysupplierid/${id}`, {
     headers:{
       Accept: 'application/json',
       Authorization: `Bearer ${token}`
@@ -738,7 +738,7 @@ async function suppliercategoryget(id, token){
 }
 
 async function supplierproductstore(product_category_id, supplier_id, name,description,price, shipping_cost,  available, token){
-  const response = await axios.post(`https://igoeppms.com/igoepp/public/api/auth/product/store`, {
+  const response = await axios.post(`https://phixotech.com/igoepp/public/api/auth/product/store`, {
     "product_category_id": product_category_id,
     "supplier_id": supplier_id,
     "name": name,
@@ -780,13 +780,9 @@ async function supplierproductupdate(product_category_id, supplier_id, name, des
 
 
 async function customerrequest(id, token){
-<<<<<<< HEAD
   // const url = `https://phixotech.com/igoepp/public/api/auth/purchaseheaderbysuppid/${id}`
   const url = `https://phixotech.com/igoepp/public/api/auth/purchasedetbysupplierid/${id}`
   const response = await axios.get(url,{
-=======
-  const response = await axios.get(`https://igoeppms.com/igoepp/public/api/auth/purchaseheaderbysuppid/${id}`,{
->>>>>>> bacd05420795edb414c445a0815f6d8df7be4f6e
     headers:{
       Accept: 'application/json',
       Authorization: `Bearer ${token}`
@@ -797,7 +793,6 @@ async function customerrequest(id, token){
 }
 
 async function customerrequestbyid(id, token){
-<<<<<<< HEAD
   // const url = `https://phixotech.com/igoepp/public/api/auth/purchaseheader/${id}`
   // const url = `https://phixotech.com/igoepp/public/api/auth/purchase/${id}`
 
@@ -815,22 +810,6 @@ async function customerrequestbyid(id, token){
 async function convertpassword(password){
   // console.log(email,password)
   const url = `https://phixotech.com/igoepp/public/api/igoeppauth/getconvpass`
-=======
-  const url = `https://igoeppms.com/igoepp/public/api/auth/purchaseheader/${id}`
-  const response = await axios.get(url,{
-    headers:{
-      Accept: 'application/json',
-      Authorization: `Bearer ${token}`
-    }
-  })
-  const data = response.data.data
-  return data
-}
-
-async function convertpassword(password){
-  // console.log(email,password)
-  const url = `https://igoeppms.com/igoepp/public/api/igoeppauth/getconvpass`
->>>>>>> bacd05420795edb414c445a0815f6d8df7be4f6e
   const response = await axios.post(url, {
       "password": password,
   })
@@ -839,7 +818,6 @@ async function convertpassword(password){
   return data 
 }
 
-<<<<<<< HEAD
 async function itempackaged(id, token){
   // console.log(email,password)
   const url = `https://phixotech.com/igoepp/public/api/auth/itempackagedforcustomer/${id}`
@@ -991,8 +969,6 @@ async function uploadproductpicture(picture, id, token){
  
 
 
-=======
->>>>>>> bacd05420795edb414c445a0815f6d8df7be4f6e
 export const ConvertPassword = (password) => {
   return convertpassword(password)
 }
@@ -1236,7 +1212,6 @@ export function CustomerRequest(id, token){
 
 export function CustomerRequestById(id, token){
   return customerrequestbyid(id, token)
-<<<<<<< HEAD
 }
 
 export function SupplierProductUpdate(product_category_id, supplier_id, name, description, price, shipping_cost, available, token){
@@ -1254,6 +1229,3 @@ export const DeleteProduct = (id, token) => {
 export const UploadProductPicture = (picture, id, token) => {
   return uploadproductpicture(picture, id, token)
 }
-=======
-}
->>>>>>> bacd05420795edb414c445a0815f6d8df7be4f6e

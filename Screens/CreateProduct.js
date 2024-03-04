@@ -48,7 +48,7 @@ const CreateProduct = ({navigation}) => {
 
     useEffect(() => {
         setisloading(true)
-        const url = `https://igoeppms.com/igoepp/public/api/auth/globalproductcategory`
+        const url = `https://phixotech.com/igoepp/public/api/auth/globalproductcategory`
         const response = axios.get(url, {
             headers:{
                 Accept:'application/json',
@@ -128,7 +128,7 @@ const CreateProduct = ({navigation}) => {
   return (
     <SafeAreaView style={{marginTop:marginStyle.marginTp, marginHorizontal:10}}>
         <GoBack onPress={() => navigation.goBack()}>Back</GoBack>
-      <Text style={styles.createtxt}>CreateProduct</Text>
+      <Text style={styles.createtxt}>Create Product</Text>
 
     <ScrollView style={{marginHorizontal:10}} showsVerticalScrollIndicator={false}>
 
@@ -152,14 +152,13 @@ const CreateProduct = ({navigation}) => {
           setid(item.value);
           setisFocus(false);
         }}
-        />
-        <View style={{ marginBottom:20}}/>
-
+      />
+      <View style={{ marginBottom:20}}/>
         <Input placeholder={"Product Name"}
-            value={name}
-            isInvalid={namevalid}
-            onUpdateValue={setname}
-            onFocus={() => setnamevalid(false)}
+          value={name}
+          isInvalid={namevalid}x
+          onUpdateValue={setname}
+          onFocus={() => setnamevalid(false)}
         />
 
         <Input placeholder={"Product Description"}

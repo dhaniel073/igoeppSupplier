@@ -57,11 +57,7 @@ const MarketPlace = ({navigation}) => {
   const NoSubCategoryNote = () => {
     return (
       <View style={{ justifyContent:'center', alignItems:'center', marginTop: DIMENSION.HEIGHT * 0.33}}>
-<<<<<<< HEAD
         <Text style={{ fontSize: 14, color: 'grey', fontFamily: 'poppinsSemiBold' }}>No Product Created</Text>
-=======
-        <Text style={{ fontSize: 14, color: 'grey', fontFamily: 'poppinsSemiBold' }}>No Item Created</Text>
->>>>>>> bacd05420795edb414c445a0815f6d8df7be4f6e
       </View>
     )
   }
@@ -81,10 +77,6 @@ const MarketPlace = ({navigation}) => {
 
       {
         fetchedcategory.length === 0 ? <NoSubCategoryNote/> :
-<<<<<<< HEAD
-=======
-      
->>>>>>> bacd05420795edb414c445a0815f6d8df7be4f6e
       <FlatList
         showsVerticalScrollIndicator={false}
         data={fetchedcategory}
@@ -103,12 +95,8 @@ const MarketPlace = ({navigation}) => {
               shipping: item.shipping_cost  
 
             })}>
-<<<<<<< HEAD
               <Text style={{position: 'absolute', alignSelf:'flex-end', top:8, right: 15}}>{item.id}</Text>
               <Image style={styles.image2} source={{ uri:`https://phixotech.com/igoepp/public/products/${item.picture}`}}/>
-=======
-              <Image style={styles.image2} source={{ uri:`https://igoeppms.com/igoepp/public/products/${item.picture}`}}/>
->>>>>>> bacd05420795edb414c445a0815f6d8df7be4f6e
               <Text style={styles.item}>{item.name}</Text>
             </TouchableOpacity>
           </View>

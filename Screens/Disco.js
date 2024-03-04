@@ -74,7 +74,7 @@ const Disco = ({route, navigation}) => {
  
 
   useEffect(() => {
-    const url = `https://igoeppms.com/igoepp/public/api/auth/billpayment/getAllBillersByCategory/${authId}`
+    const url = `https://phixotech.com/igoepp/public/api/auth/billpayment/getAllBillersByCategory/${authId}`
     const response = axios.get(url, {
         headers:{
             Accept:'application/json',
@@ -635,7 +635,8 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     // flex:1,
     alignItems:'center',
-    height: DIMENSION.HEIGHT * 0.4
+    height: Platform.OS === 'ios' ? DIMENSION.HEIGHT * 0.32 : DIMENSION.HEIGHT * 0.4
+
   },
   sharebtn:{
     justifyContent:'center',

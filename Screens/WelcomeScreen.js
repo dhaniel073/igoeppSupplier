@@ -174,7 +174,7 @@ const WelcomeScreen = ({navigation}) => {
               </TouchableOpacity>
               :
               <TouchableOpacity onPress={() => navigation.navigate('ProfilePicsView')}>
-                <Image transition={1000} source={{uri: `https://igoeppms.com/igoepp/public/supplier/${authCtx.picture}`}} style={{width:35, height:35, borderRadius:30, borderWidth:1, top:-5}}/>
+                <Image transition={1000} source={{uri: `https://phixotech.com/igoepp/public/supplier/${authCtx.picture}`}} style={{width:35, height:35, borderRadius:30, borderWidth:1, top:-5}}/>
               </TouchableOpacity>
             }
             <Text style={styles.hiChris}>Hi {authCtx.firstname}</Text>
@@ -331,7 +331,7 @@ const WelcomeScreen = ({navigation}) => {
                 <>
                 {
                   isLoading ? <LoadingOverlay/> :
-                  <ImageBackground key={key} contentFit='contain' source={{uri: `https://igoeppms.com/igoepp/public/slider/${item.slide}`}} style={styles.slide2}></ImageBackground>
+                  <ImageBackground key={key} contentFit='contain' source={{uri: `https://phixotech.com/igoepp/public/slider/${item.slide}`}} style={styles.slide2}></ImageBackground>
                 }
                 </>
               ))}  
@@ -367,7 +367,7 @@ const WelcomeScreen = ({navigation}) => {
               {/* <Image contentFit='contain' source={require('../assets/vectors/service.png')} style={{width:50, height: 50, marginTop:50, alignSelf:'flex-end', marginRight:30}} transition={1000}/> */}
               <Image contentFit='contain' source={require("../assets/group-753.png")} style={{width:50, height: 50, left:7 , marginTop: 55, marginBottom: 25 }} transition={1000}/>
               <View style={{ justifyContent:'flex-end', alignItems:'flex-end', marginTop: 50}}>
-                <Text style={{color: Color.blueviolet, alignSelf:'baseline', fontSize:10,}}> View  Request</Text>
+                <Text style={{color: Color.blueviolet, alignSelf:'baseline', fontSize:10,}}> View Request</Text>
               </View>
               <View style={{marginBottom:'30%'}}/>
             </TouchableOpacity>

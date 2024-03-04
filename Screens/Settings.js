@@ -1,11 +1,11 @@
 import { Alert, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import {MaterialCommunityIcons, Ionicons, Feather, MaterialIcons} from '@expo/vector-icons'
 import GoBack from '../Components/Ui/GoBack'
 import { Color, marginStyle } from '../Components/Ui/GlobalStyle'
 import { AuthContext } from '../Utils/AuthContext'
 import * as Updates from 'expo-updates'
-import { DeleteAccount } from '../Utils/AuthRoute'
+import { DeleteAccount, RequestSumTotal } from '../Utils/AuthRoute'
 import LoadingOverlay from '../Components/Ui/LoadingOverlay'
 
 const Settings = ({navigation}) => {

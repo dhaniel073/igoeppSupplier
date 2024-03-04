@@ -29,7 +29,7 @@
     "expo-updates": "~0.18.19",
     "js-base64": "^3.7.5",
     "react": "18.2.0",
-    "react-native": "0.72.6",
+    "react-native": "0.72.10",
     "react-native-element-dropdown": "^2.10.1",
     "react-native-modal": "^13.0.1",
     "react-native-paystack-webview": "^4.0.3",
@@ -38,12 +38,7 @@
     "react-native-screens": "~3.22.0",
     "react-native-swiper": "^1.6.0",
     "react-native-webview": "13.2.2",
-<<<<<<< HEAD
     "styled-components": "^6.1.2"
-=======
-    "styled-components": "^6.1.2",
-    "expo-updates": "~0.18.19"
->>>>>>> bacd05420795edb414c445a0815f6d8df7be4f6e
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"

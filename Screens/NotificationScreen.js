@@ -15,7 +15,7 @@ const NotificationScreen = ({navigation}) => {
   const [data, setdata] = useState([])
   const [ismodalvisible, setismodalvisible] = useState(false)
   const [notificationbyidmessage, setnotificationbyidmessage] = useState([])
-  const maxCharacters = 150;
+  const maxCharacters = 130;
 
   useEffect(() => {
     const unsuscribe = navigation.addListener('focus', async () => {

@@ -42,6 +42,7 @@ import MarketPlaceItems from './Screens/MarketPlaceItems'
 import CreateProduct from './Screens/CreateProduct';
 import NetInfo from "@react-native-community/netinfo"
 import RNRestart from 'react-native-restart'
+import FirstDisplayScreen from './Screens/FirstDisplayScreen';
 
 
 Notification.setNotificationHandler({
@@ -150,6 +151,15 @@ export default function App() {
       screenOptions={{
         contentStyle:{backgroundColor: "#fff"}
       }}>
+
+        <Stack.Screen
+          name='FirstDisplayScreen'
+          component={FirstDisplayScreen}
+          options={{
+            headerShown: false
+          }} 
+        />
+
         <Stack.Screen
           component={Login}
           name='Login'
@@ -457,6 +467,7 @@ export default function App() {
       </Stack.Navigator>
     )
   }
+  
 
   const Navigation = () => {
     const authCtx = useContext(AuthContext)
@@ -494,7 +505,6 @@ export default function App() {
       const storedlastlogintime = await AsyncStorage.getItem('supplierlastLoginTimestamp')
       const storedpoint = await AsyncStorage.getItem('supplierPoints')
       const storeduserid = await AsyncStorage.getItem('supplieruserid')
-      const storedsumtot = await AsyncStorage.getItem('suppliersumtot')
       
 
 
@@ -511,7 +521,6 @@ export default function App() {
       authCtx.supplierlastLoginTimestamp(storedlastlogintime)
       authCtx.supplierPoints(storedpoint)
       authCtx.supplieruserid(storeduserid)
-      authCtx.suppliersumtot(storedsumtot)
     }
       setisTrying(false)
     }
@@ -523,7 +532,7 @@ export default function App() {
     if(isTrying){
       return <LoadingOverlay message={"..."}/>
     }
-    
+
     return <Navigation/>
   }
 

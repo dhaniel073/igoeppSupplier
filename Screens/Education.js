@@ -86,7 +86,7 @@ const Education = ({navigation, route}) => {
 
   useEffect(() => {
     setisLoading(true)
-    const url = `https://igoeppms.com/igoepp/public/api/auth/billpayment/getAllBillersByCategory/${authId}`
+    const url = `https://phixotech.com/igoepp/public/api/auth/billpayment/getAllBillersByCategory/${authId}`
     const response = axios.get(url, {
       headers:{
         Accept:'application/json',
@@ -120,7 +120,7 @@ const Education = ({navigation, route}) => {
   const getBouquets = (value) => {
     // console.log(authId, id)
     
-    const url = `https://igoeppms.com/igoepp/public/api/auth/billpayment/getAllBouquetByBillerID/${authId}/${value}`
+    const url = `https://phixotech.com/igoepp/public/api/auth/billpayment/getAllBouquetByBillerID/${authId}/${value}`
     const response = axios.get(url, {
         headers:{
             Accept:'application/json',
@@ -353,7 +353,7 @@ const Education = ({navigation, route}) => {
       </TouchableOpacity>
 
       <View style={styles.modalView}>
-      <Image source={require("../assets/igoepp_transparent2.png")} style={{height:130, width:130, position:'absolute', alignContent:'center', alignSelf:'center', top:DIMENSION.HEIGHT * 0.1,justifyContent:'center', opacity:0.3, }} contentFit='contain'/>
+      <Image source={require("../assets/igoepp_transparent2.png")} style={{height:100, width:100, position:'absolute', alignContent:'center', alignSelf:'center', top:DIMENSION.HEIGHT * 0.1,justifyContent:'center', opacity:0.3, }} contentFit='contain'/>
         <Text style={styles.modalText}>Reciept</Text>
           {
             Platform.OS === "android" ? 
@@ -470,7 +470,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     // flex:1,
     alignItems:'center',
-    height: DIMENSION.HEIGHT * 0.4
+    height: Platform.OS === 'ios' ? DIMENSION.HEIGHT * 0.32 : DIMENSION.HEIGHT * 0.4
   },
   dropdown: {
     maxHeight: 70,

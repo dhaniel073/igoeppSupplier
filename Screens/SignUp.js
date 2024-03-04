@@ -1,4 +1,4 @@
-import { Alert, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Alert, KeyboardAvoidingView, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useContext, useEffect, useState } from 'react'
 import axios from 'axios'
 import { Dropdown } from 'react-native-element-dropdown'
@@ -124,7 +124,7 @@ const SignUp = ({navigation}) => {
     useEffect(() => {
       var config = {
         method: 'get',
-        url: "https://igoeppms.com/igoepp/public/api/general/country2",
+        url: "https://phixotech.com/igoepp/public/api/general/country2",
         headers:{
           Accept: 'application/json',
           Authorization: `Bearer ${authCtx.token}`
@@ -147,11 +147,7 @@ const SignUp = ({navigation}) => {
         setCountryData(countryArray)
       })
       .catch(function (error) {
-<<<<<<< HEAD
         console.log(error);
-=======
-        // console.log(error);
->>>>>>> bacd05420795edb414c445a0815f6d8df7be4f6e
         return;
       })
     }, [])
@@ -159,7 +155,6 @@ const SignUp = ({navigation}) => {
   
   
   const handleState = (countryCode) => {
-<<<<<<< HEAD
     var config = {
       method: 'get',
       url: `https://phixotech.com/igoepp/public/api/general/state2/${countryCode}`,
@@ -203,58 +198,9 @@ const SignUp = ({navigation}) => {
   
   const handleCity = (stateCode) => {
     // console.log(stateCode)
-=======
->>>>>>> bacd05420795edb414c445a0815f6d8df7be4f6e
     var config = {
       method: 'get',
-      url: `https://igoeppms.com/igoepp/public/api/general/state2/${countryCode}`,
-      // headers:{
-      //   Accept: 'application/json',
-      //   Authorization: `Bearer ${authCtx.token}`
-      // }
-    }
-    axios(config)
-    .then(function (response) {
-        console.log(JSON.stringify(response.data))
-      var count = Object.keys(response.data.data).length;
-      let stateArray = []
-      for (var i = 0; i < count; i++){
-        stateArray.push({
-          label: response.data.data[i].state_name,
-          value: response.data.data[i].id,
-        })
-        // setStateCode(response.data.data[i].id)
-      }
-      setStateData(stateArray)
-    })
-    .catch(function (error) {
-      // console.log(error);
-      return;
-    })
-  }
-
-  const convertpasswordget = async () => {
-    toggleAcceptTermsModal()
-    try {
-      setIsLoading(true)
-      const response = await ConvertPassword(enteredPassword)
-      console.log(response)
-      const password = response
-      signupSend(password)
-    } catch (error) {
-      setIsLoading(true)
-      console.log(error.response)
-      Alert.alert("Error", "An error occured")
-      setIsLoading(false)
-    }
-  }
-  
-  
-  const handleCity = (stateCode) => {
-    // console.log(stateCode)
-    var config = {
-      method: 'get',
-      url: `https://igoeppms.com/igoepp/public/api/general/lga2/${stateCode}`,
+      url: `https://phixotech.com/igoepp/public/api/general/lga2/${stateCode}`,
       headers:{
         Accept: 'application/json',
         Authorization: `Bearer ${authCtx.token}`
@@ -418,6 +364,10 @@ const SignUp = ({navigation}) => {
       return <LoadingOverlay message={"Creating User"}/>
     }
   return (
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={styles.container}
+    >
     <ScrollView style={{marginTop:55, marginHorizontal:18}} showsVerticalScrollIndicator={false}>
 
     <View style={{alignSelf:'center'}}>
@@ -667,7 +617,7 @@ const SignUp = ({navigation}) => {
       <View style={{flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
         <Text style={{fontFamily:'poppinsRegular', fontSize:15,}}>Already Have An Account? </Text>
       <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-        <Text style={{fontFamily:'poppinsRegular', fontSize:15, color:Color.orange_100}}>Login</Text>
+        <Text style={{fontFamily:'poppinsRegular', fontSize:15, color:Color.darkolivegreen_100}}>Login</Text>
       </TouchableOpacity>
       </View>
     </View>
@@ -694,27 +644,34 @@ const SignUp = ({navigation}) => {
     <Text> A.	SERVICE LEVEL AGREEMENT(SLA)</Text>
 
     <Text style={styles.textsty}> 
-    1.	Services to be Performed
-    I have agreed to work in the capacity of <Text style={{fontFamily:'poppinsBold'}}> {enteredFirstname} { enteredLastName}</Text> as an Artisan 
+      1.	Services to be Performed
     </Text>
+    <Text style={styles.textsty2}>
+      I have agreed to work in the capacity of <Text style={{fontFamily:'poppinsBold'}}> {enteredFirstname} { enteredLastName}</Text> as an Artisan 
+    </Text>
+      
 
     <Text style={styles.textsty}>
-    2.	Payment
+    2.	Payment </Text>
+    <Text style={styles.textsty2}>
     IGOEPP pays the artisan 36hrs after the customer has confirmed that the service has been executed satisfactory. IGOEPP would deduct 5% commission from the total amount collected from the customer.
     </Text>
 
     <Text style={styles.textsty}>
-    3.	Expenses
+    3.	Expenses</Text>
+    <Text style={styles.textsty2}>
     Artisan is to ensure that all expenditure is considered in the bidding process with the customer. The customer can only buy replacement parts from IGOEPP designated suppliers.
     </Text>
 
     <Text style={styles.textsty}>
-    4.	Materials for Work
-      All parts and materials that would be used to work for a customer must be purchased from IGOEPP designated suppliers by the customer in the IGOEPP Market Place on the APP. Artisan must not replace faulty parts or materials with personal materials or materials purchased from unauthorized supplier. IGOEPP Suppliers would deliver the part not the customer for the artisan to work with.
+    4.	Materials for Work </Text>
+    <Text style={styles.textsty2}>
+    All parts and materials that would be used to work for a customer must be purchased from IGOEPP designated suppliers by the customer in the IGOEPP Market Place on the APP. Artisan must not replace faulty parts or materials with personal materials or materials purchased from unauthorized supplier. IGOEPP Suppliers would deliver the part not the customer for the artisan to work with.
     </Text>
 
     <Text style={styles.textsty}>
-    5.	Terminating the Agreement
+    5.	Terminating the Agreement</Text>
+    <Text style={styles.textsty2}>
     With reasonable cause, either IGOEPP or Artisan may terminate the Agreement, effective immediately upon giving written notice.
     Reasonable cause includes:
     •	A material violation of this Agreement, or
@@ -724,12 +681,14 @@ const SignUp = ({navigation}) => {
     </Text>
 
     <Text style={styles.textsty}>
-    6.	Modifying the  Agreement
+    6.	Modifying the  Agreement </Text>
+    <Text style={styles.textsty2}>
     This Agreement may be modified on mutual consent of both parties. (Ratification can be done via oral, written, email or other digital agreement).
     </Text>
 
     <Text style={styles.textsty}>
-    7.	Confidentiality
+    7.	Confidentiality</Text>
+    <Text style={styles.textsty2}>
     Artisans acknowledge that it will be necessary for IGOEPP to disclose certain confidential and proprietary information about the client to them in order for artisan to perform duties under this Agreement. Artisan acknowledges that disclosure to the third party or misuse of this proprietary or confidential information would irreparably harm the Client. Accordingly, Artisan will not disclose or use, either during or after the term of this Agreement, any proprietary or confidential information of the Client without the Client’s prior written permission except to the extent necessary to perform the agreed service on the Client’s behalf.
     Upon termination of Artisan’s service to company or at Client’s request, Artisan shall deliver to client all materials in Artisan’s possession relating to Client’s business.
 
@@ -737,8 +696,9 @@ const SignUp = ({navigation}) => {
     </Text>
 
     <Text style={styles.textsty}>
-    8.	No Partnership
-      This Agreement does not create a partnership relationship. Artisan does not have authority to enter contracts on IGOEPP’s behalf.
+    8.	No Partnership</Text>
+    <Text style={styles.textsty2}>
+    This Agreement does not create a partnership relationship. Artisan does not have authority to enter contracts on IGOEPP’s behalf.
     </Text>
 
     <View style={{flexDirection:'row', justifyContent:'center', flex:1, marginTop:10, paddingLeft:15 }}>
@@ -770,12 +730,19 @@ const SignUp = ({navigation}) => {
     </Modal>
   
     </ScrollView>
+    </KeyboardAvoidingView>
   )
 }
 
 export default SignUp
 
 const styles = StyleSheet.create({
+  textsty:{
+    fontFamily:'poppinsBold'
+  },
+  textsty2:{
+    fontFamily:'poppinsRegular'
+  },
   outer:{
     width:25,
     height: 25,
